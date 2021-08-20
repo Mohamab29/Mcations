@@ -106,4 +106,5 @@ dist
 # package-lock Files
 package-lock.json
 
-# 
+# images file
+/images/*
