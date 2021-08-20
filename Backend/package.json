@@ -1,0 +1,35 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "The Backend for the vacations project.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mohamab29/Mcations.git"
+  },
+  "keywords": [
+    "NodeJS",
+    "Express",
+    "MySQL",
+    "Socket.io",
+    "JWT"
+  ],
+  "author": "Mohamed Abomokh",
+  "license": "SEE LICENSE IN ../LICENSE",
+  "bugs": {
+    "url": "https://github.com/Mohamab29/Mcations/issues"
+  },
+  "homepage": "https://github.com/Mohamab29/Mcations#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-rate-limit": "^5.3.0",
+    "jsonwebtoken": "^8.5.1",
+    "mysql": "^2.18.1",
+    "striptags": "^3.2.0",
+    "uuid": "^8.3.2"
+  }
+}

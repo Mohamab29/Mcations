@@ -1,0 +1,10 @@
+{
+    "isProduction": true,
+    "isDevelopment": false,
+    "database": {
+        "host": "",
+        "user": "",
+        "password": "",
+        "name": ""
+    }
+}
