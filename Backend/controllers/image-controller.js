@@ -21,7 +21,10 @@ router.post("/", async (request, response) => {
 
         // validate
         const allowedExtensions = [".jpg", ".png", ".jpeg"];
-        if (!(allowedExtensions.includes(extension))) return response.status(400).send(`The image extension must be one of ${allowedExtensions}.`);
+        if (!(allowedExtensions.includes(extension))) {
+            response.status(400).send(`The image extension must be one of ${allowedExtensions}.`);
+            return;
+        }
 
         // logic
         const newFileName = uuid.v4() + extension; // e.g.: "d3388752-7a4f-44d5-992c-bc316c750f7f.jpg"
@@ -36,7 +39,7 @@ router.post("/", async (request, response) => {
 });
 
 // GET image : */api/images/:imageName
-router.get("/:imageName",(request, response) => {
+router.get("/:imageName", (request, response) => {
     try {
         // data
         const imageName = "/" + request.params.imageName;

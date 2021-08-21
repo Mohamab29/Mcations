@@ -12,6 +12,7 @@ const server = express();
 const authController = require("./controllers/auth-controller");
 const imageController = require("./controllers/image-controller");
 const vacationsController = require("./controllers/vacations-controller");
+const followersController = require("./controllers/followers-controller");
 
 // limiting the number of requests 
 server.use("/api/", expressRateLimit({
@@ -26,6 +27,7 @@ server.use(express.json());
 server.use("/api/auth", authController);
 server.use("/api/images", imageController);
 server.use("/api/vacations", vacationsController);
+server.use("/api/followers", followersController);
 
 // catching routes that we didn't build and send an error
 server.use("*", (_, response) => {

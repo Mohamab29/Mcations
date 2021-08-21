@@ -8,7 +8,7 @@ const router = express.Router();
 // POST Register : */api/auth/register 
 router.post("/register", async (request, response) => {
     try {
-        // Data: 
+        // Data and model: 
         const user = new User(request.body);
 
         // Validation: 
@@ -31,7 +31,7 @@ router.post("/register", async (request, response) => {
 // POST Login : */api/auth/register 
 router.post("/login", async (request, response) => {
     try {
-        // Data: 
+        // Data and model: 
         const credentials = new Credentials(request.body);
 
         // Validation: 
