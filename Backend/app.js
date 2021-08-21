@@ -2,13 +2,18 @@
 global.config = require(process.env.NODE_ENV === "production" ? "./config-prod.json" : "./config-dev.json");
 // getting environment variables
 require('dotenv').config({ path: './.env' });
-// requires
+
+// requires for express
 const express = require('express');
-const authController = require("./controllers/auth-controller");
-const imageController = require("./controllers/image-controller");
 const expressRateLimit = require("express-rate-limit");
 const server = express();
 
+// requiring the controllers
+const authController = require("./controllers/auth-controller");
+const imageController = require("./controllers/image-controller");
+const vacationsController = require("./controllers/vacations-controller");
+
+// limiting the number of requests 
 server.use("/api/", expressRateLimit({
     windowMs: 800, // time window
     max: 4, // max requests allowed in that time window from the same user
@@ -20,6 +25,7 @@ server.use(express.json());
 // our controllers
 server.use("/api/auth", authController);
 server.use("/api/images", imageController);
+server.use("/api/vacations", vacationsController);
 
 // catching routes that we didn't build and send an error
 server.use("*", (_, response) => {
