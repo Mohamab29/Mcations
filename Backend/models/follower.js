@@ -5,7 +5,7 @@ class Follower {
         this.userId = follower.userId;
         this.vacationId = follower.vacationId;
     }
-    validatePost() {
+    validate() {
         const validationSchema = Joi.object({
             userId: Joi.string().required().guid({ version: 'uuidv4' }).min(36).max(36),
             vacationId: Joi.string().required().guid({ version: 'uuidv4' }).min(36).max(36),

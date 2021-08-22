@@ -16,9 +16,15 @@ async function addFollowerAsync(follower) {
     await dal.executeAsync(sql, [follower.userId, follower.vacationId]);
     return follower;
 }
+async function deleteFollowerAsync(follower) {
+    const sql = "DELETE FROM followers WHERE vacationId = ? and userId = ?";
+    const info = await dal.executeAsync(sql, [follower.vacationId, follower.userId]);
+    return info.affectedRows === 1;
+}
 
 module.exports = {
     getFollowedVacationsByUserIdAsync,
     getFollowedVacationsByVacationIdAsync,
-    addFollowerAsync
+    addFollowerAsync,
+    deleteFollowerAsync
 }

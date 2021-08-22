@@ -38,13 +38,14 @@ router.get('/by-vacation-id/:uuid', uuidValidateV4, async (request, response) =>
     }
 });
 
+// POST a follower: */api/followers
 router.post('/', async (request, response) => {
     try {
         // data and model
         const follower = new Follower(request.body);
 
         // validation
-        const errors = follower.validatePost();
+        const errors = follower.validate();
         if (errors) return response.status(400).send(errors);
 
         // logic
@@ -58,5 +59,27 @@ router.post('/', async (request, response) => {
     }
 });
 
+// delete one follower : */api/followers/:vacationId/:userId
+router.delete("/:vacationId/:userId", async (request, response) => {
+    try {
+
+
+        // data and model
+        const follower = new Follower(request.params)
+        // validation
+        const errors = follower.validate();
+        if (errors) return response.status(400).send(errors);
+
+        // logic
+        const success = await followersLogic.deleteFollowerAsync(follower);
+        if (!success) return response.status(404).send("either the vacation id or the user id given were not found.");
+
+        //success
+        response.sendStatus(204);
+
+    } catch (error) {
+        errorsHelper.internalServerError(response, error);
+    }
+});
 
 module.exports = router;
