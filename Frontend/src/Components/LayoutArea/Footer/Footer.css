@@ -1,0 +1,19 @@
+.Footer {
+    text-align: center;
+    font-weight: bolder;
+    width: auto;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    justify-items: center;
+}
+
+.Footer>.social-media-footer {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}

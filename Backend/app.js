@@ -31,7 +31,7 @@ server.use("/api/followers", followersController);
 
 // catching routes that we didn't build and send an error
 server.use("*", (_, response) => {
-    response.status(404).send("Route was not found");
+    response.status(404).send(_.originalUrl + " route was not found");
 });
 
 const port = process.env.PORT || 3001;
