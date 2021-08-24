@@ -32,7 +32,7 @@ function Login(): JSX.Element {
         type: AuthActionType.UserLoggedIn,
         payload: response.data,
       });
-      history.replace("/home");
+      history.replace("/");
       notify.success("You've logged in successfully!");
     } catch (error) {
       notify.error(error);

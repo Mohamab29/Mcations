@@ -25,7 +25,7 @@ function Register(): JSX.Element {
         payload: response.data,
       });
       notify.success("You've been registered.");
-      history.replace("/home");
+      history.replace("/");
     } catch (error) {
       notify.error(error);
     }

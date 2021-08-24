@@ -6,6 +6,7 @@ require('dotenv').config({ path: './.env' });
 // requires for express
 const express = require('express');
 const expressRateLimit = require("express-rate-limit");
+const cors = require("cors");
 const server = express();
 
 // requiring the controllers
@@ -14,14 +15,16 @@ const imageController = require("./controllers/image-controller");
 const vacationsController = require("./controllers/vacations-controller");
 const followersController = require("./controllers/followers-controller");
 
-// limiting the number of requests 
-server.use("/api/", expressRateLimit({
-    windowMs: 800, // time window
-    max: 4, // max requests allowed in that time window from the same user
-    message: "Hey you!!\nstop DOSing our website!." // Error message.
-}));
+server.use(cors());
 
+// limiting the number of requests 
+// server.use("/api", expressRateLimit({
+//     windowMs: 1000, // time window
+//     max: 5, // max requests allowed in that time window from the same user
+//     message: "Hey you!!\nstop DOSing our website!." // Error message.
+// }));
 server.use(express.json());
+
 
 // our controllers
 server.use("/api/auth", authController);

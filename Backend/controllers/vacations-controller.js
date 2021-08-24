@@ -7,7 +7,7 @@ const verifyLoggedIn = require("../middleware/verify-logged-in");
 const Vacation = require("../models/vacation");
 
 // in order to get any of the requests here, I need the user to be logged in.
-// router.use(verifyLoggedIn);
+router.use(verifyLoggedIn);
 
 // GET all vacations : */api/vacations
 router.get("/", async (request, response) => {
