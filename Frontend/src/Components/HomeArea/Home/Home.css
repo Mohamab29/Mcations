@@ -65,14 +65,19 @@
     font-weight: 300;
 }
 
+.hero span~span {
+    margin-top: 0;
+}
+
 .hero>.home-buttons {
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;
 }
-.home-buttons>button {
+
+.home-buttons> button {
     width: 8rem;
-    padding:10px;
+    padding: 10px;
     margin: 2em;
     margin-left: 0;
 }
