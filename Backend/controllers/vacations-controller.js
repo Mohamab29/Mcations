@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router();
 const vacationsLogic = require("../business-logic-layer/vacations-logic");
 const errorsHelper = require("../helpers/errors-helper");
+const Vacation = require("../models/vacation");
 const uuidValidateV4 = require("../middleware/check-uuid");
 const verifyLoggedIn = require("../middleware/verify-logged-in");
-const Vacation = require("../models/vacation");
 
 // in order to get any of the requests here, I need the user to be logged in.
 router.use(verifyLoggedIn);

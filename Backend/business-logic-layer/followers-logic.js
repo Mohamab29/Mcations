@@ -12,6 +12,15 @@ async function getFollowedVacationsByVacationIdAsync(vacationId) {
     return followers;
 }
 async function addFollowerAsync(follower) {
+    const followed = await getFollowedVacationsByUserIdAsync(follower.userId);
+    if (followed.length) {
+        // checking if a person already followed a vacation if yes then we return empty object
+        for (const follow of followed) {
+            if (follow.vacationId === follower.vacationId) {
+                return false;
+            }
+        }
+    }
     const sql = "INSERT INTO followers VALUES( ?, ?)";
     await dal.executeAsync(sql, [follower.userId, follower.vacationId]);
     return follower;

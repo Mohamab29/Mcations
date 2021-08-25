@@ -14,7 +14,7 @@ function hash(plainText) {
 function getNewToken(user) {
     //adding a token to user object
     const payload = { user };
-    return jwt.sign(payload, process.env.JWT_KEY, { expiresIn: "30m" });
+    return jwt.sign(payload, process.env.JWT_KEY, { expiresIn: "20m" });
 }
 
 module.exports = {

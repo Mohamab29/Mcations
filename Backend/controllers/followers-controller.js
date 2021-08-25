@@ -2,8 +2,12 @@ const express = require("express");
 const router = express.Router();
 const followersLogic = require("../business-logic-layer/followers-logic");
 const errorsHelper = require("../helpers/errors-helper");
-const uuidValidateV4 = require("../middleware/check-uuid");
 const Follower = require("../models/follower");
+const uuidValidateV4 = require("../middleware/check-uuid");
+const verifyLoggedIn = require("../middleware/verify-logged-in");
+
+// in order to get any of the requests here, I need the user to be logged in.
+router.use(verifyLoggedIn);
 
 // GET all followed vacations by user id: */api/followers/by-user-id/:uuid
 router.get('/by-user-id/:uuid', uuidValidateV4, async (request, response) => {
@@ -29,7 +33,6 @@ router.get('/by-vacation-id/:uuid', uuidValidateV4, async (request, response) =>
 
         // logic
         const users = await followersLogic.getFollowedVacationsByVacationIdAsync(vacationId);
-        if (users.length === 0) return response.status(404).send("No following users were found for this vacation id.")
 
         // success
         response.json(users);
@@ -50,7 +53,9 @@ router.post('/', async (request, response) => {
 
         // logic
         const addedFollower = await followersLogic.addFollowerAsync(follower);
-
+        if (!addedFollower) {
+            return response.send(false);
+        }
         //  success
         response.status(201).json(addedFollower);
 

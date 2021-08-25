@@ -1,5 +1,5 @@
 .user-layout {
-    height: 100vh;
+    height: 100%;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: 70px 1fr 80px;
@@ -11,6 +11,10 @@
 
 main, header, footer {
     grid-column: span 6;
+}
+
+main {
+    overflow: auto;
 }
 
 .guest-layout {

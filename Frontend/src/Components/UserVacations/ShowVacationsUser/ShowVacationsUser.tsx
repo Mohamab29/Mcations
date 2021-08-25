@@ -20,42 +20,42 @@ function ShowVacationsUser(): JSX.Element {
   );
 
   useEffect(() => {
-    setTimeout(() => {
-      jwtAxios
-        .get<VacationModel[]>(config.vacationsURL)
-        .then((response) => {
-          store.dispatch({
-            type: VacationsActionType.VacationsDownloaded,
-            payload: response.data,
-          });
-          setVacations(store.getState().vacationsState.vacations);
-        })
-        .catch((error) => {
-          if (axios.isAxiosError(error) && error.response) {
-            notify.error(error);
-
-            if (error.response.status === 401) {
-              history.replace("/register");
-            } else if (error.response.status === 403) {
-              history.replace("/login");
-              store.dispatch({
-                type: AuthActionType.UserLoggedOut,
-              });
-            }
-          } else {
-            notify.error(error);
-          }
+    jwtAxios
+      .get<VacationModel[]>(config.vacationsURL)
+      .then((response) => {
+        store.dispatch({
+          type: VacationsActionType.VacationsDownloaded,
+          payload: response.data,
         });
-    }, 2000);
+        setVacations(store.getState().vacationsState.vacations);
+      })
+      .catch((error) => {
+        if (axios.isAxiosError(error) && error.response) {
+          notify.error(error);
+
+          if (error.response.status === 401) {
+            history.replace("/register");
+          } else if (error.response.status === 403) {
+            history.replace("/login");
+            store.dispatch({
+              type: AuthActionType.UserLoggedOut,
+            });
+          }
+        } else {
+          notify.error(error);
+        }
+      });
   }, [vacations]);
   return (
     <div className="ShowVacationsUser">
       {(vacations.length === 0 && <LoadingGIF />) || (
         <>
           <Typography variant="h2">The available vacations</Typography>
-          {vacations.map((v, index) => (
-            <VacationCard key={index} vacation={v} />
-          ))}
+          <div className="cards">
+            {vacations.map((v, index) => (
+              <VacationCard key={index} vacation={v} />
+            ))}
+          </div>
         </>
       )}
     </div>
