@@ -3,6 +3,7 @@ import axios from "axios";
 import { Console } from "console";
 import { useEffect } from "react";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import FollowerModel from "../../../Models/FollowerModel";
 import VacationModel from "../../../Models/VacationModel";
 import store from "../../../Redux/Store";
@@ -17,7 +18,7 @@ interface VacationCardProps {
 
 function VacationCard(props: VacationCardProps): JSX.Element {
   const [numOfFollowers, setNumOfFollowers] = useState(0);
-
+  const history = useHistory();
   useEffect(() => {
     (async () => {
       try {
@@ -66,14 +67,20 @@ function VacationCard(props: VacationCardProps): JSX.Element {
         >
           Fav
         </Button>
-        <Button variant="contained" className="details-icon">
+        <Button
+          onClick={(e) =>
+            history.push("/vacations/details/" + props.vacation.vacationId)
+          }
+          variant="contained"
+          className="details-icon"
+        >
           Details
         </Button>
-        {numOfFollowers && (
+        {(numOfFollowers && (
           <Typography variant="body2" className="follower-counter">
             Followers: {numOfFollowers}
           </Typography>
-        ) || <></>}
+        )) || <></>}
         <Typography variant="h6" className="card-title">
           {props.vacation.destination}
         </Typography>

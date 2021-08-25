@@ -1,13 +1,12 @@
 .card {
-    position: relative;
     min-width:30vw;
     overflow: auto;
     max-width: 80vw;
-    max-height: 400px;
+    max-height: 600px;
     margin: 2rem;
     display: grid;
     grid-template-columns: 1fr 80px;
-    grid-template-rows: 70px 1fr 3fr 2fr;
+    grid-template-rows: 70px 4fr 2fr;
     justify-items: center;
     align-items: center;
     gap:1em;
@@ -19,7 +18,7 @@
 
 .card .card-title {
 
-    grid-area: 2/span 2;
+    grid-area: 1/1;
 }
 
 .card>.fav-icon {
@@ -31,24 +30,24 @@
 }
 
 .card>.details-icon {
-    grid-area: 4/2;
+    grid-area: 3/2;
     width: 50px;
     height: 50px;
     margin-right: 10px;
 }
 
 .card>.follower-counter {
-    grid-area: 3/2;
+    grid-area: 2/2;
     margin-bottom: 10px;
     margin-right: 20px;
 }
 
 .card>.card-footer {
-    grid-area: 4/1;
+    grid-area: 3/1;
     height: 80%;
 }
 
 .card>img {
-    grid-area: 3/1;
-    width: 50%;
+    grid-row: 2/3;
+    width: 70%;
 }
