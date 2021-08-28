@@ -17,7 +17,6 @@ router.get('/by-user-id/:uuid', uuidValidateV4, async (request, response) => {
 
         // logic
         const vacations = await followersLogic.getFollowedVacationsByUserIdAsync(userId);
-        if (vacations.length === 0) return response.status(404).send("No followed vacations were found for this user id.")
 
         // success
         response.json(vacations);

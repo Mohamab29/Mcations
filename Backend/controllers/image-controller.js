@@ -13,10 +13,10 @@ router.post("/", async (request, response) => {
     try {
         // checking
         if (!request.files) return response.status(400).send("No image sent");
-        if (!request.files.imageName) return response.status(400).send("The image must be called imageName");
+        if (!request.files.image) return response.status(400).send("The image file request must be called image");
 
         // data
-        const image = request.files.imageName; // The name of the image sent from the front.
+        const image = request.files.image; // The name of the image sent from the front.
         const extension = path.extname(image.name); // ".jpg" or ".png" or ".gif" or...
 
         // validate

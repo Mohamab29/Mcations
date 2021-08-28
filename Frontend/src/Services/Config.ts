@@ -6,7 +6,7 @@ abstract class Config {
   public readonly followersURL: string;
   public readonly getAllFollowedVacations: string;
   public readonly getAllFollowersForVacation: string;
-
+    
   public constructor(baseURL: string) {
     this.registerURL = baseURL + "auth/register/";
     this.loginURL = baseURL + "auth/login/";

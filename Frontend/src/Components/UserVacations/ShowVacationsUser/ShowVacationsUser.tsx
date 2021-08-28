@@ -2,7 +2,7 @@ import { Typography } from "@material-ui/core";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import FollowerModel from "../../../Models/FollowerModel";
+import sortVacations from "../../../Helpers/SortVacations";
 import VacationModel from "../../../Models/VacationModel";
 import { AuthActionType } from "../../../Redux/AuthState";
 import store from "../../../Redux/Store";
@@ -41,14 +41,13 @@ function ShowVacationsUser(): JSX.Element {
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
           notify.error(error);
-
           if (error.response.status === 401) {
-            history.replace("/register");
+            return history.replace("/register");
           } else if (error.response.status === 403) {
-            history.replace("/login");
             store.dispatch({
               type: AuthActionType.UserLoggedOut,
             });
+            return history.replace("/login");
           }
         } else {
           notify.error(error);
@@ -56,31 +55,7 @@ function ShowVacationsUser(): JSX.Element {
       }
     })();
   }, [vacations]);
-  async function sortVacations(vacations: VacationModel[]) {
-    try {
-      const followedVacations: VacationModel[] = [];
-      const notFollowedVacations: VacationModel[] = [];
-      const response = await jwtAxios.get<FollowerModel[]>(
-        config.getAllFollowedVacations + store.getState().authState.user.userId
-      );
-      if (!response.data.length) {
-        return vacations;
-      }
-      const followedByUser = response.data.map((f) => f.vacationId);
-      for (const vacation of vacations) {
-        if (followedByUser.includes(vacation.vacationId)) {
-          followedVacations.push(vacation);
-        } else {
-          notFollowedVacations.push(vacation);
-        }
-      }
-      console.log(followedByUser);
-      console.log(notFollowedVacations);
-      return followedVacations.concat(notFollowedVacations);
-    } catch (error) {
-      alert(error.message);
-    }
-  }
+
   return (
     <div className="ShowVacationsUser">
       {(vacations.length === 0 && <LoadingGIF />) || (

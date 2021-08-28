@@ -1,9 +1,8 @@
 import { Button, Paper, Typography } from "@material-ui/core";
-import axios from "axios";
-import { Console } from "console";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { beautifyDate } from "../../../Helpers/HandleDate";
 import FollowerModel from "../../../Models/FollowerModel";
 import VacationModel from "../../../Models/VacationModel";
 import store from "../../../Redux/Store";
@@ -32,9 +31,7 @@ function VacationCard(props: VacationCardProps): JSX.Element {
     })();
   }, [numOfFollowers]);
 
-  const beautifyDate = (date: string) => {
-    return new Date(date).toLocaleDateString();
-  };
+
   const updateFollow = async (vacationId: string) => {
     try {
       const userId = store.getState().authState.user.userId;
@@ -53,6 +50,9 @@ function VacationCard(props: VacationCardProps): JSX.Element {
       } else {
         setNumOfFollowers(numOfFollowers + 1);
       }
+
+
+
     } catch (error) {
       notify.error(error);
     }

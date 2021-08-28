@@ -1,3 +1,18 @@
 .ShowVacationsAdmin {
-	
+    position: relative;
+	display:flex;
+    flex-flow: column nowrap;
+    justify-content:center;
+    align-items:center;
+}
+.ShowVacationsAdmin >.card-container{
+    display:flex;
+    flex-flow:row wrap;
+    justify-content:center;
+    align-items:center;
+}
+.ShowVacationsAdmin > .add-vacation{
+    position:absolute;
+    left:20px;
+    top:20px;
 }

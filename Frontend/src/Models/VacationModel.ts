@@ -6,6 +6,7 @@ class VacationModel {
   public startDate: string;
   public endDate: string;
   public imageName: string;
+  public image?:FileList;
 }
 
 export default VacationModel;
