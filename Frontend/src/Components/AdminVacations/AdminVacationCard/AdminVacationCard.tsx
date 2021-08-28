@@ -1,8 +1,10 @@
 import { Button, ButtonGroup, Paper, Typography } from "@material-ui/core";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { beautifyDate } from "../../../Helpers/HandleDate";
 import VacationModel from "../../../Models/VacationModel";
 import config from "../../../Services/Config";
+import VacationPopup from "../VacationPopup/VacationPopup";
 import "./AdminVacationCard.css";
 
 interface AdminVacationCardProps {
@@ -11,15 +13,15 @@ interface AdminVacationCardProps {
 
 function AdminVacationCard(props: AdminVacationCardProps): JSX.Element {
   const history = useHistory();
+  const [popupOpen, setPopupOpen] = useState(false);
+
   async function updateVacation(vacationId: string) {
     console.log();
   }
-  
+
   return (
     <>
       <Paper variant="elevation" className="admin-card">
-
-
         <Typography variant="h6" className="card-title">
           {props.vacation.destination}
         </Typography>
@@ -43,7 +45,7 @@ function AdminVacationCard(props: AdminVacationCardProps): JSX.Element {
         </div>
         <ButtonGroup variant="contained" className="card-btn-group">
           <Button
-            onClick={(e) => updateVacation(props.vacation.vacationId)}
+            onClick={(e) => setPopupOpen(true)}
             className="update-icon"
           >
             Update
@@ -62,7 +64,12 @@ function AdminVacationCard(props: AdminVacationCardProps): JSX.Element {
           >
             Delete
           </Button>
-          </ButtonGroup>
+        </ButtonGroup>
+        <VacationPopup
+          popupOpen={popupOpen}
+          setPopupOpen={setPopupOpen}
+          vacation={props.vacation}
+        />
       </Paper>
     </>
   );

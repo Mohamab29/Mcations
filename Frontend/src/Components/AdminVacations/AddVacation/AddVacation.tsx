@@ -1,21 +1,19 @@
 import { Button } from "@material-ui/core";
 import { TextField } from "@material-ui/core";
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { checkStartEndDate } from "../../../Helpers/HandleDate";
 import VacationModel from "../../../Models/VacationModel";
 import config from "../../../Services/Config";
 import jwtAxios from "../../../Services/jwtAxios";
 import notify from "../../../Services/Notify";
-import "./VacationForm.css";
+import "./AddVacation.css";
 
-interface VacationFormProps {
-  vacation?: VacationModel;
+interface AddVacationProps {
   popupOpen: boolean;
   setPopupOpen: Function;
 }
 
-function VacationForm(props: VacationFormProps): JSX.Element {
+function AddVacation(props: AddVacationProps): JSX.Element {
   const {
     register,
     handleSubmit,
@@ -46,10 +44,9 @@ function VacationForm(props: VacationFormProps): JSX.Element {
     }
   }
   return (
-    <div className="VacationForm">
+    <div className="AddVacation">
       <form onSubmit={handleSubmit(send)}>
         <TextField
-        value={props.vacation.destination}
           label="Destination"
           variant="standard"
           className="TextBox"
@@ -67,7 +64,7 @@ function VacationForm(props: VacationFormProps): JSX.Element {
           <span>A destination should be at least 4 characters</span>
         )}
         {errors.destination?.type === "maxLength" && (
-          <span>A destination should be at most 1500 characters</span>
+          <span>A destination should be at most 60 characters</span>
         )}
         <TextField
           size="medium"
@@ -156,4 +153,4 @@ function VacationForm(props: VacationFormProps): JSX.Element {
   );
 }
 
-export default VacationForm;
+export default AddVacation;

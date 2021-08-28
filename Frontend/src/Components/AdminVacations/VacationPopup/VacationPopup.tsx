@@ -7,6 +7,8 @@ import {
 } from "@material-ui/core";
 import { CloseSharp } from "@material-ui/icons";
 import VacationModel from "../../../Models/VacationModel";
+import AddVacation from "../AddVacation/AddVacation";
+import UpdateVacation from "../UpdateVacation/UpdateVacation";
 import VacationForm from "../VacationForm/VacationForm";
 import "./VacationPopup.css";
 
@@ -33,10 +35,18 @@ function VacationPopup(props: VacationPopupProps): JSX.Element {
           </IconButton>
         </DialogTitle>
         <DialogContent dividers className="form-content">
-          <VacationForm
-            setPopupOpen={props.setPopupOpen}
-            popupOpen={props.popupOpen}
-          />
+          {props.vacation ? (
+            <UpdateVacation
+              setPopupOpen={props.setPopupOpen}
+              popupOpen={props.popupOpen}
+              vacation={props.vacation}
+            />
+          ) : (
+            <AddVacation
+              setPopupOpen={props.setPopupOpen}
+              popupOpen={props.popupOpen}
+            />
+          )}
         </DialogContent>
       </Dialog>
     </>

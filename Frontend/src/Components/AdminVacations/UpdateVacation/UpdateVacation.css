@@ -1,0 +1,33 @@
+.UpdateVacation{
+    width: 100%;
+    height: 100%;
+}
+.UpdateVacation>form {
+    width:100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.UpdateVacation>form>.TextBox {
+    width: 100%;
+    font-size: large;
+    font-weight: bolder;
+}
+
+.UpdateVacation>form>.TextBox~span {
+    width: 100%;
+    font-weight: bold;
+    color: crimson;
+    text-align: left;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.UpdateVacation>form>button {
+    width:50%;
+    align-self: center;
+    margin-bottom: 20px;
+}
