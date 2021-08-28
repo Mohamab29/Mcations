@@ -6,6 +6,12 @@ function Header(): JSX.Element {
   return (
     <div className="Header">
       <h1>Hello to Mcations</h1>
+      {store.getState().authState.user.isAdmin && (
+        <>
+          <NavLink to="/vacations">Show Vacations</NavLink>
+          <NavLink to="/graphs">Graphs</NavLink>
+        </>
+      )}
       <span>
         Hello{" "}
         {store.getState().authState.user.firstName +
