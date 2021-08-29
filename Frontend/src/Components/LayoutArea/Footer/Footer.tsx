@@ -2,6 +2,7 @@ import "./Footer.css";
 
 function Footer(): JSX.Element {
   const getYear = () => new Date().getFullYear();
+
   return (
     <div className="Footer">
       <div className="social-media-footer">

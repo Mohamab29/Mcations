@@ -29,6 +29,10 @@ export function vacationsReducer(
       newState.vacations.push(action.payload);
       break;
     case VacationsActionType.VacationUpdated:
+      const index = newState.vacations.findIndex(
+        (v) => v.vacationId === action.payload.vacationId
+      );
+      newState.vacations[index] = action.payload;
       break;
     case VacationsActionType.VacationDeleted:
       const vacationIndex = newState.vacations.findIndex(

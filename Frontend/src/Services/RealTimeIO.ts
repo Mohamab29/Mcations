@@ -1,12 +1,14 @@
 import { io, Socket } from "socket.io-client";
 import VacationModel from "../Models/VacationModel";
-import store from "../Redux/Store";
-import { VacationsActionType } from "../Redux/VacationsState";
 
 // handling real time updates, adds and deletion of vacations
 class RealTimeService {
   private socket: Socket;
+
   public connect(): void {
+    if (this.socket?.connected) {
+      return;
+    }
     this.socket = io("http://localhost:3001");
   }
   public vacationAdded(updateState: Function) {
@@ -15,8 +17,16 @@ class RealTimeService {
   public addVacation(vacation: VacationModel) {
     this.socket.emit("add-new-vacation", vacation);
   }
+  public vacationUpdated(updateState: Function) {
+    this.socket.on("vacation-updated", (vacation) => updateState(vacation));
+  }
+  public updateVacation(vacation: VacationModel) {
+    this.socket.emit("update-vacation", vacation);
+  }
   public vacationDeleted(updateState: Function) {
-    this.socket.on("vacation-deleted", (vacationId:string) => updateState(vacationId));
+    this.socket.on("vacation-deleted", (vacationId: string) =>
+      updateState(vacationId)
+    );
   }
   public deleteVacation(vacationId: string) {
     this.socket.emit("delete-vacation", vacationId);

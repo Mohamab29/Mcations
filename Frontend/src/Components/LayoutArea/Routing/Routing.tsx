@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Redirect, Route, Switch } from "react-router";
 import UserModel from "../../../Models/UserModel";
 import store from "../../../Redux/Store";
@@ -14,7 +14,12 @@ import PageNotFound from "../PageNotFound/PageNotFound";
 
 function Routing(): JSX.Element {
   const [user, setUser] = useState<UserModel>(store.getState().authState.user);
-
+  useEffect(() => {
+    const unsubscribe = store.subscribe(() => {
+      setUser(store.getState().authState.user );
+    });
+    return () => unsubscribe();
+  }, [user])
   return (
     <>
       <Switch>

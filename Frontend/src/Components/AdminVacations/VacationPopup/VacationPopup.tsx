@@ -9,7 +9,6 @@ import { CloseSharp } from "@material-ui/icons";
 import VacationModel from "../../../Models/VacationModel";
 import AddVacation from "../AddVacation/AddVacation";
 import UpdateVacation from "../UpdateVacation/UpdateVacation";
-import VacationForm from "../VacationForm/VacationForm";
 import "./VacationPopup.css";
 
 interface VacationPopupProps {
@@ -25,7 +24,9 @@ function VacationPopup(props: VacationPopupProps): JSX.Element {
     <>
       <Dialog open={props.popupOpen} className="popup-form">
         <DialogTitle className="form-dialog-title">
-          <Typography variant="h6">Add a vacation</Typography>
+          <Typography variant="h6">
+            {!props.vacation ? "Add a vacation" : "Update a vacation"}
+          </Typography>
           <IconButton
             onClick={() => handleClose()}
             color="secondary"

@@ -33,6 +33,8 @@ function ShowVacationsAdmin(): JSX.Element {
           notify.error("You are not authorized to enter here!");
           return history.replace("/home");
         }
+        // establishing a connection with the server
+        realTimeService.connect();
         if (store.getState().vacationsState.vacations.length === 0) {
           const response = await jwtAxios.get<VacationModel[]>(
             config.vacationsURL
@@ -44,7 +46,6 @@ function ShowVacationsAdmin(): JSX.Element {
           });
         }
         setVacations(store.getState().vacationsState.vacations);
-        // listening to add vacation event
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
           notify.error(error);

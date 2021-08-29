@@ -33,8 +33,6 @@ function Login(): JSX.Element {
         type: AuthActionType.UserLoggedIn,
         payload: response.data,
       });
-      // socket io connection
-      realTimeService.connect();
 
       notify.success("You've logged in successfully!");
       history.replace("/");

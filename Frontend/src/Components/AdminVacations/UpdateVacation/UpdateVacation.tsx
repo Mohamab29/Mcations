@@ -1,13 +1,22 @@
-import { Button, FormControl, Input, InputLabel, withStyles } from "@material-ui/core";
+import {
+  Button,
+  FormControl,
+  Input,
+  InputLabel,
+  withStyles,
+} from "@material-ui/core";
 import { TextField } from "@material-ui/core";
 import { SyntheticEvent, useRef } from "react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { checkStartEndDate } from "../../../Helpers/HandleDate";
 import VacationModel from "../../../Models/VacationModel";
+import store from "../../../Redux/Store";
+import { VacationsActionType } from "../../../Redux/VacationsState";
 import config from "../../../Services/Config";
 import jwtAxios from "../../../Services/jwtAxios";
 import notify from "../../../Services/Notify";
+import realTimeService from "../../../Services/RealTimeIO";
 import "./UpdateVacation.css";
 interface UpdateVacationProps {
   vacation?: VacationModel;
@@ -25,24 +34,33 @@ function UpdateVacation(props: UpdateVacationProps): JSX.Element {
 
   async function send(vacation: VacationModel) {
     try {
+      const isSure = window.confirm("Are you sure you want to update this vacation?");
+      if (!isSure) return;
       const checked = checkStartEndDate(vacation.startDate, vacation.endDate);
       if (!checked.answer) {
         return notify.error(checked.message);
       }
       // we put the upload the image so we put it in form data
-      const formData = new FormData();
-      formData.append("image", vacation.image.item(0));
-      const imageResponse = await jwtAxios.post<string>(
-        config.vacationImagesURL,
-        formData
-      );
-      vacation.imageName = imageResponse.data;
-
+      if (vacation.image.item(0)) {
+        const formData = new FormData();
+        formData.append("image", vacation.image.item(0));
+        const imageResponse = await jwtAxios.post<string>(
+          config.vacationImagesURL,
+          formData
+        );
+        vacation.imageName = imageResponse.data;
+      }
       // here we send all the form to the back end after successfully adding an image
-      await jwtAxios.patch<VacationModel>(
+      const response = await jwtAxios.patch<VacationModel>(
         config.vacationsURL + props.vacation.vacationId,
         vacation
       );
+
+      store.dispatch({
+        type: VacationsActionType.VacationUpdated,
+        payload: response.data,
+      });
+      realTimeService.updateVacation(response.data);
       notify.success("vacation updated successfully.");
       props.setPopupOpen(false);
     } catch (error) {
@@ -75,16 +93,11 @@ function UpdateVacation(props: UpdateVacationProps): JSX.Element {
             id="component-destination"
             defaultValue={vacation.destination}
             {...register("destination", {
-              required: true,
               minLength: 4,
               maxLength: 60,
             })}
           />
         </FormControl>
-
-        {errors.destination?.type === "required" && (
-          <span>Please enter your first name</span>
-        )}
 
         {errors.destination?.type === "minLength" && (
           <span>A destination should be at least 4 characters</span>
@@ -98,16 +111,12 @@ function UpdateVacation(props: UpdateVacationProps): JSX.Element {
             id="component-description"
             defaultValue={vacation.description}
             {...register("description", {
-              required: true,
               minLength: 10,
               maxLength: 1500,
             })}
           />
         </FormControl>
 
-        {errors.description?.type === "required" && (
-          <span>Please enter your description</span>
-        )}
         {errors.description?.type === "minLength" && (
           <span>A description should be at least 10 characters</span>
         )}
@@ -131,13 +140,11 @@ function UpdateVacation(props: UpdateVacationProps): JSX.Element {
         <ValidationTextField
           className="TextBox"
           label="Price"
-          required
           inputProps={{ step: "0.01" }}
           variant="outlined"
           defaultValue={vacation.price}
           id="validation-outlined-input"
           {...register("price", {
-            required: true,
             min: 0,
             max: 10000,
           })}
@@ -156,7 +163,6 @@ function UpdateVacation(props: UpdateVacationProps): JSX.Element {
           />
         </FormControl> */}
 
-        {errors.price?.type === "required" && <span>Please enter a price</span>}
         {errors.price?.type === "min" && (
           <span>A price cannot be negative</span>
         )}
@@ -186,7 +192,7 @@ function UpdateVacation(props: UpdateVacationProps): JSX.Element {
           <Input
             type="date"
             id="component-to"
-            defaultValue={""}
+            defaultValue={vacation.endDate}
             {...register("endDate", {
               required: true,
             })}
@@ -203,9 +209,7 @@ function UpdateVacation(props: UpdateVacationProps): JSX.Element {
             inputProps={{
               accept: "image/png, image/jpg, image/jpeg",
             }}
-            {...register("image", {
-              required: true,
-            })}
+            {...register("image")}
           />
         </FormControl>
         <Button type="submit" variant="contained" color="primary">

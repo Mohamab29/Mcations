@@ -18,9 +18,16 @@ import "./ShowVacationsUser.css";
 function ShowVacationsUser(): JSX.Element {
   const history = useHistory();
   const [vacations, setVacations] = useState<VacationModel[]>([]);
+  // socket io functions for handling the events
   const vacationHasBeenAdded = (vacation: VacationModel) => {
     store.dispatch({
       type: VacationsActionType.VacationAdded,
+      payload: vacation,
+    });
+  };
+  const vacationHasBeenUpdated = (vacation: VacationModel) => {
+    store.dispatch({
+      type: VacationsActionType.VacationUpdated,
       payload: vacation,
     });
   };
@@ -37,6 +44,8 @@ function ShowVacationsUser(): JSX.Element {
           notify.error("You are not logged in.");
           return history.replace("/login");
         }
+        // establishing a connection with the server
+        realTimeService.connect()
         if (store.getState().vacationsState.vacations.length === 0) {
           const response = await jwtAxios.get<VacationModel[]>(
             config.vacationsURL
@@ -52,6 +61,8 @@ function ShowVacationsUser(): JSX.Element {
         realTimeService.vacationAdded(vacationHasBeenAdded);
         // listening to delete vacation event
         realTimeService.vacationDeleted(vacationHasBeenDeleted);
+        // listening to update vacation event
+        realTimeService.vacationUpdated(vacationHasBeenUpdated);
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
           notify.error(error);

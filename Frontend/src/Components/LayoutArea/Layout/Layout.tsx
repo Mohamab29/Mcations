@@ -10,7 +10,7 @@ function Layout(): JSX.Element {
   const [user, setUser] = useState<UserModel>(store.getState().authState.user);
   useEffect(() => {
     const unsubscribe = store.subscribe(() => {
-      setUser(store.getState().authState.user);
+      setUser(store.getState().authState.user );
     });
     return () => unsubscribe();
   }, [user]);
@@ -21,24 +21,27 @@ function Layout(): JSX.Element {
         <Routing />
       </div>
     );
+  } else {
+    return (
+      <>
+        {user ? (
+          <div className={"user-layout"}>
+            <header>
+              <Header />
+            </header>
+            <main>
+              <Routing />
+            </main>
+            <footer>
+              <Footer />
+            </footer>
+          </div>
+        ) : (
+          null
+        )}
+      </>
+    );
   }
-  return (
-    <div className={"user-layout"}>
-      {user && (
-        <>
-          <header>
-            <Header />
-          </header>
-          <main>
-            <Routing />
-          </main>
-          <footer>
-            <Footer />
-          </footer>
-        </>
-      )}
-    </div>
-  );
 }
 
 export default Layout;
