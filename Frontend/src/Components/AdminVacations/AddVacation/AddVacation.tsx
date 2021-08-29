@@ -3,9 +3,12 @@ import { TextField } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 import { checkStartEndDate } from "../../../Helpers/HandleDate";
 import VacationModel from "../../../Models/VacationModel";
+import store from "../../../Redux/Store";
+import { VacationsActionType } from "../../../Redux/VacationsState";
 import config from "../../../Services/Config";
 import jwtAxios from "../../../Services/jwtAxios";
 import notify from "../../../Services/Notify";
+import realTimeService from "../../../Services/RealTimeIO";
 import "./AddVacation.css";
 
 interface AddVacationProps {
@@ -26,7 +29,7 @@ function AddVacation(props: AddVacationProps): JSX.Element {
       if (!checked.answer) {
         return notify.error(checked.message);
       }
-      // we put the upload the image so we put it in form data
+      //   we put the upload the image so we put it in form data
       const formData = new FormData();
       formData.append("image", vacation.image.item(0));
       const imageResponse = await jwtAxios.post<string>(
@@ -35,8 +38,16 @@ function AddVacation(props: AddVacationProps): JSX.Element {
       );
       vacation.imageName = imageResponse.data;
 
-      // here we send all the form to the back end after successfully adding an image
-      await jwtAxios.post<VacationModel>(config.vacationsURL, vacation);
+      //   here we send all the form to the back end after successfully adding an image
+      const response = await jwtAxios.post<VacationModel>(
+        config.vacationsURL,
+        vacation
+      );
+      store.dispatch({
+        type: VacationsActionType.VacationAdded,
+        payload: response.data,
+      });
+      realTimeService.addVacation(response.data);
       notify.success("vacation added successfully.");
       props.setPopupOpen(false);
     } catch (error) {

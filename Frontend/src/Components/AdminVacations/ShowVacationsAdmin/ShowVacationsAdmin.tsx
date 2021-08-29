@@ -16,11 +16,13 @@ import AdminVacationCard from "../AdminVacationCard/AdminVacationCard";
 import VacationPopup from "../VacationPopup/VacationPopup";
 import AddIcon from "@material-ui/icons/Add";
 import "./ShowVacationsAdmin.css";
+import realTimeService from "../../../Services/RealTimeIO";
 
 function ShowVacationsAdmin(): JSX.Element {
   const history = useHistory();
   const [vacations, setVacations] = useState<VacationModel[]>([]);
   const [popupOpen, setPopupOpen] = useState(false);
+
   useEffect(() => {
     (async () => {
       try {
@@ -42,6 +44,7 @@ function ShowVacationsAdmin(): JSX.Element {
           });
         }
         setVacations(store.getState().vacationsState.vacations);
+        // listening to add vacation event
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
           notify.error(error);
@@ -58,7 +61,11 @@ function ShowVacationsAdmin(): JSX.Element {
         }
       }
     })();
-  }, [vacations]);
+    const unsubscribe = store.subscribe(() => {
+      setVacations([...store.getState().vacationsState.vacations]);
+    });
+    return () => unsubscribe();
+  }, []);
 
   return (
     <div className="ShowVacationsAdmin">
@@ -73,16 +80,16 @@ function ShowVacationsAdmin(): JSX.Element {
         Add Vacation
       </Button>
       {(!vacations.length && <LoadingGIF />) || (
-      <>
-        <Typography variant="h2">
-          The available vacations in the database
-        </Typography>
-        <div className="card-container">
-          {vacations.map((v, index) => (
-            <AdminVacationCard key={index} vacation={v} />
-          ))}
-        </div>
-      </>
+        <>
+          <Typography variant="h2">
+            The available vacations in the database
+          </Typography>
+          <div className="card-container">
+            {vacations.map((v, index) => (
+              <AdminVacationCard key={index} vacation={v} />
+            ))}
+          </div>
+        </>
       )}
       <VacationPopup popupOpen={popupOpen} setPopupOpen={setPopupOpen} />
     </div>

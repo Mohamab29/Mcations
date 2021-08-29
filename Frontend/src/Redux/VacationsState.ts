@@ -29,10 +29,12 @@ export function vacationsReducer(
       newState.vacations.push(action.payload);
       break;
     case VacationsActionType.VacationUpdated:
-      ///...
       break;
     case VacationsActionType.VacationDeleted:
-      ///...
+      const vacationIndex = newState.vacations.findIndex(
+        (v) => v.vacationId === action.payload
+      );
+      newState.vacations.splice(vacationIndex, 1);
       break;
   }
   return newState;

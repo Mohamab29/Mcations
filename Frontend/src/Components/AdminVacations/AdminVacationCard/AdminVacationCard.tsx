@@ -3,7 +3,12 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { beautifyDate } from "../../../Helpers/HandleDate";
 import VacationModel from "../../../Models/VacationModel";
+import store from "../../../Redux/Store";
+import { VacationsActionType } from "../../../Redux/VacationsState";
 import config from "../../../Services/Config";
+import jwtAxios from "../../../Services/jwtAxios";
+import notify from "../../../Services/Notify";
+import realTimeService from "../../../Services/RealTimeIO";
 import VacationPopup from "../VacationPopup/VacationPopup";
 import "./AdminVacationCard.css";
 
@@ -14,8 +19,21 @@ interface AdminVacationCardProps {
 function AdminVacationCard(props: AdminVacationCardProps): JSX.Element {
   const history = useHistory();
   const [popupOpen, setPopupOpen] = useState(false);
-  async function updateVacation(vacationId: string) {
-    console.log();
+  async function handleDeletion(vacationId: string, imageName: string) {
+    try {
+      const isSure = window.confirm("Are you sure?");
+      if (!isSure) return;
+      await jwtAxios.delete(config.vacationsURL + vacationId);
+      await jwtAxios.delete(config.vacationImagesURL + imageName);
+      store.dispatch({
+        type: VacationsActionType.VacationDeleted,
+        payload: vacationId,
+      });
+      realTimeService.deleteVacation(vacationId);
+      notify.success("Vacation has been deleted!");
+    } catch (error) {
+      notify.error(error);
+    }
   }
 
   return (
@@ -43,10 +61,7 @@ function AdminVacationCard(props: AdminVacationCardProps): JSX.Element {
           </Typography>
         </div>
         <ButtonGroup variant="contained" className="card-btn-group">
-          <Button
-            onClick={(e) => setPopupOpen(true)}
-            className="update-icon"
-          >
+          <Button onClick={(e) => setPopupOpen(true)} className="update-icon">
             Update
           </Button>
           <Button
@@ -58,7 +73,12 @@ function AdminVacationCard(props: AdminVacationCardProps): JSX.Element {
             Details
           </Button>
           <Button
-            onClick={(e) => updateVacation(props.vacation.vacationId)}
+            onClick={(e) =>
+              handleDeletion(
+                props.vacation.vacationId,
+                props.vacation.imageName
+              )
+            }
             className="delete-icon"
           >
             Delete

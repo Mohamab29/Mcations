@@ -9,6 +9,7 @@ import { AuthActionType } from "../../../Redux/AuthState";
 import store from "../../../Redux/Store";
 import config from "../../../Services/Config";
 import notify from "../../../Services/Notify";
+import realTimeService from "../../../Services/RealTimeIO";
 import "./Login.css";
 
 function Login(): JSX.Element {
@@ -32,8 +33,11 @@ function Login(): JSX.Element {
         type: AuthActionType.UserLoggedIn,
         payload: response.data,
       });
-      history.replace("/");
+      // socket io connection
+      realTimeService.connect();
+
       notify.success("You've logged in successfully!");
+      history.replace("/");
     } catch (error) {
       notify.error(error);
     }
