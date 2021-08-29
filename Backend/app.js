@@ -9,6 +9,9 @@ const expressRateLimit = require("express-rate-limit");
 const cors = require("cors");
 const server = express();
 
+// Socket.io logic
+const socketLogic = require("./business-logic-layer/real-time-logic");
+
 // requiring the controllers
 const authController = require("./controllers/auth-controller");
 const imageController = require("./controllers/image-controller");
@@ -39,4 +42,6 @@ server.use("*", (_, response) => {
 
 const port = process.env.PORT || 3001;
 
-server.listen(port, () => console.log(`Listening on ${port} ...`))
+const listener = server.listen(port, () => console.log(`Listening on ${port} ...`));
+
+socketLogic.init(listener);

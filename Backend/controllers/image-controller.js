@@ -57,6 +57,27 @@ router.get("/:imageName", (request, response) => {
         errorsHelper.internalServerError(response, error)
     }
 });
+// DELETE an image : */api/image/:imageName
+router.delete("/:imageName", (request, response) => {
+    try {
+        // data
+        const imageName = "/" + request.params.imageName;
+        const imagePath = path.resolve("./images") + imageName; // get absolute path 
+
+        // validation:
+        if (fs.existsSync(imagePath)) {  
+            fs.unlinkSync(imagePath);
+
+            // success
+            return response.sendStatus(204);
+        }
+        else {
+            return response.status(404).send("requested image for deleting was not found.")
+        }
+    } catch (error) {
+        errorsHelper.internalServerError(response, error)
+    }
+});
 
 
 module.exports = router;

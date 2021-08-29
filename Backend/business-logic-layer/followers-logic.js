@@ -31,9 +31,24 @@ async function deleteFollowerAsync(follower) {
     return info.affectedRows === 1;
 }
 
+async function getFollowersNumber() {
+    // In this function we are gonna use a SQL query to get the number of followers for each
+    // vacation and it's destination 
+    const sql = `SELECT F.vacationId,
+    COUNT( F.vacationId) AS followerNumber,V.destination 
+    FROM followers AS F 
+    JOIN vacations AS V 
+    ON F.vacationId = V.vacationId 
+    GROUP BY vacationId;`;
+    const followers = await dal.executeAsync(sql);
+    return followers;
+
+}
+
 module.exports = {
     getFollowedVacationsByUserIdAsync,
     getFollowedVacationsByVacationIdAsync,
     addFollowerAsync,
-    deleteFollowerAsync
+    deleteFollowerAsync,
+    getFollowersNumber,
 }

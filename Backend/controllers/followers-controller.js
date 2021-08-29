@@ -40,6 +40,20 @@ router.get('/by-vacation-id/:uuid', uuidValidateV4, async (request, response) =>
     }
 });
 
+// number of followers for each vacation
+// GET number of followers : /api/followers/all-followed-vacations/
+router.get('/all-followed-vacations/', async(request, response)=>{
+    try {
+        // logic
+        const followers = await followersLogic.getFollowersNumber();
+
+        //success
+        response.json(followers);
+    } catch (error) {
+        errorsHelper.internalServerError(response,error);
+    }
+});
+
 // POST a follower: */api/followers
 router.post('/', async (request, response) => {
     try {
