@@ -4,17 +4,20 @@ abstract class Config {
   public readonly vacationsURL: string;
   public readonly vacationImagesURL: string;
   public readonly followersURL: string;
-  public readonly getAllFollowedVacations: string;
+  public readonly getAllFollowedVacationsByUserId: string;
   public readonly getAllFollowersForVacation: string;
-    
+  public readonly getAllFollowedVacations: string;
+
   public constructor(baseURL: string) {
     this.registerURL = baseURL + "auth/register/";
     this.loginURL = baseURL + "auth/login/";
     this.vacationsURL = baseURL + "vacations/";
     this.vacationImagesURL = baseURL + "images/";
-    this.followersURL = baseURL+ "followers/";
-    this.getAllFollowedVacations = this.followersURL+ "by-user-id/";
-    this.getAllFollowersForVacation = this.followersURL+ "by-vacation-id/";
+    this.followersURL = baseURL + "followers/";
+    this.getAllFollowedVacationsByUserId = this.followersURL + "by-user-id/";
+    this.getAllFollowersForVacation = this.followersURL + "by-vacation-id/";
+    this.getAllFollowedVacations =
+      this.followersURL + "all-followed-vacations/";
   }
 }
 

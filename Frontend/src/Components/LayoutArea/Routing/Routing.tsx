@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Redirect, Route, Switch } from "react-router";
 import UserModel from "../../../Models/UserModel";
 import store from "../../../Redux/Store";
+import ShowGraph from "../../AdminVacations/ShowGraph/ShowGraph";
 import ShowVacationsAdmin from "../../AdminVacations/ShowVacationsAdmin/ShowVacationsAdmin";
 import Login from "../../AuthArea/Login/Login";
 import Logout from "../../AuthArea/Logout/Logout";
@@ -27,6 +28,8 @@ function Routing(): JSX.Element {
             exact
           />
         )}
+        <Route path="/graph" component={ShowGraph} exact />
+
         <Route path="/login" component={Login} exact />
         <Route path="/logout" component={Logout} exact />
         <Route path="/register" component={Register} exact />

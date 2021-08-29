@@ -19,11 +19,8 @@ import "./ShowVacationsAdmin.css";
 
 function ShowVacationsAdmin(): JSX.Element {
   const history = useHistory();
-  const [vacations, setVacations] = useState<VacationModel[]>(
-    store.getState().vacationsState.vacations
-  );
+  const [vacations, setVacations] = useState<VacationModel[]>([]);
   const [popupOpen, setPopupOpen] = useState(false);
-
   useEffect(() => {
     (async () => {
       try {
@@ -69,21 +66,23 @@ function ShowVacationsAdmin(): JSX.Element {
         startIcon={<AddIcon />}
         variant="outlined"
         className="add-vacation"
-        onClick={()=>{setPopupOpen(true)}}
+        onClick={() => {
+          setPopupOpen(true);
+        }}
       >
         Add Vacation
       </Button>
       {(!vacations.length && <LoadingGIF />) || (
-        <>
-          <Typography variant="h2">
-            The available vacations in the database
-          </Typography>
-          <div className="card-container">
-            {vacations.map((v, index) => (
-              <AdminVacationCard key={index} vacation={v} />
-            ))}
-          </div>
-        </>
+      <>
+        <Typography variant="h2">
+          The available vacations in the database
+        </Typography>
+        <div className="card-container">
+          {vacations.map((v, index) => (
+            <AdminVacationCard key={index} vacation={v} />
+          ))}
+        </div>
+      </>
       )}
       <VacationPopup popupOpen={popupOpen} setPopupOpen={setPopupOpen} />
     </div>

@@ -9,9 +9,10 @@ function Header(): JSX.Element {
       {store.getState().authState.user.isAdmin && (
         <>
           <NavLink to="/vacations">Show Vacations</NavLink>
-          <NavLink to="/graphs">Graphs</NavLink>
+          <NavLink to="/graph">Show Graph</NavLink>
         </>
       )}
+
       <span>
         Hello{" "}
         {store.getState().authState.user.firstName +

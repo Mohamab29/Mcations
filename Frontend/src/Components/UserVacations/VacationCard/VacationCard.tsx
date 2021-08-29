@@ -29,7 +29,7 @@ function VacationCard(props: VacationCardProps): JSX.Element {
         notify.error(error);
       }
     })();
-  }, [numOfFollowers]);
+  }, [props.vacation.vacationId]);
 
 
   const updateFollow = async (vacationId: string) => {

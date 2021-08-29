@@ -9,7 +9,7 @@ async function sortVacations(vacations: VacationModel[]) {
     const followedVacations: VacationModel[] = [];
     const notFollowedVacations: VacationModel[] = [];
     const response = await jwtAxios.get<FollowerModel[]>(
-      config.getAllFollowedVacations + store.getState().authState.user.userId
+      config.getAllFollowedVacationsByUserId + store.getState().authState.user.userId
     );
     if (!response.data.length) {
       return vacations;

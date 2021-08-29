@@ -1,0 +1,14 @@
+.ShowGraph {
+    width: 100%;
+    height: 100%;
+	display:flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+.ShowGraph > .graph-container {
+    margin-top: 50px;
+    width: 80%;
+    height: 80%;
+
+}

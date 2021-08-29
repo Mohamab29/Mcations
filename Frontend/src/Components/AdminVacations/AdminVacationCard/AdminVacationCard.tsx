@@ -14,7 +14,6 @@ interface AdminVacationCardProps {
 function AdminVacationCard(props: AdminVacationCardProps): JSX.Element {
   const history = useHistory();
   const [popupOpen, setPopupOpen] = useState(false);
-
   async function updateVacation(vacationId: string) {
     console.log();
   }

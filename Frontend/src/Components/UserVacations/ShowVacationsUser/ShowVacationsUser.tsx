@@ -16,9 +16,7 @@ import "./ShowVacationsUser.css";
 
 function ShowVacationsUser(): JSX.Element {
   const history = useHistory();
-  const [vacations, setVacations] = useState<VacationModel[]>(
-    store.getState().vacationsState.vacations
-  );
+  const [vacations, setVacations] = useState<VacationModel[]>([]);
 
   useEffect(() => {
     (async () => {
