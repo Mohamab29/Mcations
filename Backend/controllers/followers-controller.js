@@ -5,6 +5,7 @@ const errorsHelper = require("../helpers/errors-helper");
 const Follower = require("../models/follower");
 const uuidValidateV4 = require("../middleware/check-uuid");
 const verifyLoggedIn = require("../middleware/verify-logged-in");
+const verifyAdmin = require("../middleware/verify-admin");
 
 // in order to get any of the requests here, I need the user to be logged in.
 router.use(verifyLoggedIn);

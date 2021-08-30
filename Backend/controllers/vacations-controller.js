@@ -5,6 +5,7 @@ const errorsHelper = require("../helpers/errors-helper");
 const Vacation = require("../models/vacation");
 const uuidValidateV4 = require("../middleware/check-uuid");
 const verifyLoggedIn = require("../middleware/verify-logged-in");
+const verifyAdmin = require("../middleware/verify-admin");
 
 // in order to get any of the requests here, I need the user to be logged in.
 router.use(verifyLoggedIn);
@@ -40,7 +41,7 @@ router.get("/:uuid", uuidValidateV4, async (request, response) => {
 });
 
 // POST a vacation : */api/vacations
-router.post('/', async (request, response) => {
+router.post('/', verifyAdmin,async (request, response) => {
     try {
         // model
         const vacation = new Vacation(request.body);
@@ -61,7 +62,7 @@ router.post('/', async (request, response) => {
 });
 
 // PUT a vacation : */api/vacations/:uuid
-router.put('/:uuid', uuidValidateV4, async (request, response) => {
+router.put('/:uuid', verifyAdmin,uuidValidateV4, async (request, response) => {
     try {
         // model
         request.body.vacationId = request.params.uuid;
@@ -84,7 +85,7 @@ router.put('/:uuid', uuidValidateV4, async (request, response) => {
 });
 
 // PATCH a vacation : */api/vacations/:uuid
-router.patch('/:uuid', uuidValidateV4, async (request, response) => {
+router.patch('/:uuid', verifyAdmin,uuidValidateV4, async (request, response) => {
     try {
         // model
         request.body.vacationId = request.params.uuid;
@@ -107,7 +108,7 @@ router.patch('/:uuid', uuidValidateV4, async (request, response) => {
 });
 
 // delete one vacation : */api/vacations/:uuid
-router.delete("/:uuid", uuidValidateV4, async (request, response) => {
+router.delete("/:uuid", verifyAdmin,uuidValidateV4, async (request, response) => {
     try {
         // data
         const vacationId = request.params.uuid;
