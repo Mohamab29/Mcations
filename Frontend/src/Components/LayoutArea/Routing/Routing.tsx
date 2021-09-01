@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { useEffect, useState } from "react";
 import { Redirect, Route, Switch } from "react-router";
 import UserModel from "../../../Models/UserModel";
@@ -16,10 +17,10 @@ function Routing(): JSX.Element {
   const [user, setUser] = useState<UserModel>(store.getState().authState.user);
   useEffect(() => {
     const unsubscribe = store.subscribe(() => {
-      setUser(store.getState().authState.user );
+      setUser(store.getState().authState.user);
     });
     return () => unsubscribe();
-  }, [user])
+  }, [user]);
   return (
     <>
       <Switch>
@@ -39,7 +40,7 @@ function Routing(): JSX.Element {
         <Route path="/logout" component={Logout} exact />
         <Route path="/register" component={Register} exact />
         <Route path="/home" component={Home} exact />
-        {(!user && <Redirect from="/" to="/home" exact />) || (
+        {((_.isEmpty(user) || !user) && <Redirect from="/" to="/home" exact />) || (
           <Redirect from="/" to="/vacations" exact />
         )}
         <Route component={PageNotFound} />

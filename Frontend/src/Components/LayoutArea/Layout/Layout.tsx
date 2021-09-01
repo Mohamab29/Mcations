@@ -1,8 +1,10 @@
+import _ from "lodash";
 import { useEffect, useState } from "react";
 import UserModel from "../../../Models/UserModel";
 import store from "../../../Redux/Store";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
+import NavBar from "../NavBar/NavBar";
 import Routing from "../Routing/Routing";
 import "./Layout.css";
 
@@ -15,7 +17,7 @@ function Layout(): JSX.Element {
     return () => unsubscribe();
   }, [user]);
   // if no one is logged in
-  if (!user) {
+  if (_.isEmpty(user) || !user) {
     return (
       <div className="guest-layout">
         <Routing />
@@ -24,10 +26,10 @@ function Layout(): JSX.Element {
   } else {
     return (
       <>
-        {user ? (
+        {!_.isEmpty(user) ? (
           <div className={"user-layout"}>
             <header>
-              <Header />
+              <NavBar/>
             </header>
             <main>
               <Routing />

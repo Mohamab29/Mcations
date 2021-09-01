@@ -8,6 +8,8 @@
     flex-flow: column wrap;
     justify-content: center;
     justify-items: center;
+    background: #C0D8DB;
+    background: linear-gradient(90deg, #C0D8DB 18%,#C5DBD9 68%);
 }
 
 .Footer>.social-media-footer {
@@ -16,4 +18,20 @@
     justify-content: center;
     align-items: center;
     gap: 2rem;
+}
+
+.logo {
+    cursor: pointer;
+}
+
+.linkedin-logo {
+    color: #0a66c2
+}
+
+.instagram-logo {
+    color: #c32aa3
+}
+
+.github-logo {
+    color: black
 }

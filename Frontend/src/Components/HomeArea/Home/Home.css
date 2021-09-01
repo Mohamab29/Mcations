@@ -4,9 +4,9 @@
     overflow: hidden;
     position: relative;
     height: 100%;
-    background: linear-gradient(45deg, rgba(255, 175, 189, .7), rgba(100, 216, 243, .7), rgba(234, 236, 198, .6), rgba(245, 146, 176, .7), rgba(52, 219, 216, .7)) 0 0 / 1000% no-repeat, url("../../../assets/images/home-bg-1.jpg") 0 0 / cover no-repeat;
-    -webkit-animation: gradientAnimation 40s ease infinite;
-    animation: gradientAnimation 40s ease infinite;
+    background: linear-gradient(45deg, rgba(215, 220, 221, 1), rgba(100, 216, 243, .7), rgba(234, 236, 198, .6),rgba(215, 220, 221,1), rgba(52, 219, 216, .7)) 0 0 / 1000% no-repeat, url("../../../assets/images/home-bg-1.jpg") 0 0 / cover no-repeat;
+    -webkit-animation: gradientAnimation 30s ease infinite;
+    animation: gradientAnimation 30s ease infinite;
 }
 
 * {

@@ -2,18 +2,19 @@
     height: 100%;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: 70px 1fr 80px;
+    grid-template-rows: 80px 1fr 80px;
+
 }
 
-.user-layout, .user-layout>* {
-    border: 1px solid black;
-}
+
 
 main, header, footer {
     grid-column: span 6;
 }
 
 main {
+    background-image: url("../../../assets/images/bg.jpg");
+    background-size: cover;
     overflow: auto;
 }
 

@@ -9,10 +9,9 @@ const verifyLoggedIn = require("../middleware/verify-logged-in");
 const verifyAdmin = require("../middleware/verify-admin");
 
 
-router.use(verifyLoggedIn);
 router.use(expressFileUpload()); // Insert the uploaded file into request.files object
 // POST upload image : */api/images
-router.post("/", verifyAdmin, async (request, response) => {
+router.post("/",verifyLoggedIn, verifyAdmin, async (request, response) => {
     try {
         // checking
         if (!request.files) return response.status(400).send("No image sent");
@@ -61,7 +60,7 @@ router.get("/:imageName", (request, response) => {
     }
 });
 // DELETE an image : */api/image/:imageName
-router.delete("/:imageName", verifyAdmin, (request, response) => {
+router.delete("/:imageName",verifyLoggedIn, verifyAdmin, (request, response) => {
     try {
         // data
         const imageName = "/" + request.params.imageName;

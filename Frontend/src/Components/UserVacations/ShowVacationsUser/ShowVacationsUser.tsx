@@ -66,6 +66,7 @@ function ShowVacationsUser(): JSX.Element {
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
           notify.error(error);
+          console.log(error)
           if (error.response.status === 401) {
             return history.replace("/register");
           } else if (error.response.status === 403) {
