@@ -4,6 +4,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
 import "./NavBar.css";
 import { useState } from "react";
+import store from "../../../Redux/Store";
 
 function NavBar(): JSX.Element {
   const [click, setClick] = useState(false);
@@ -37,17 +38,19 @@ function NavBar(): JSX.Element {
               Vacations
             </NavLink>
           </li>
-          <li className="nav-item">
-            <NavLink
-              exact
-              to="/graph"
-              activeClassName="active"
-              className="nav-links"
-              onClick={handleClick}
-            >
-              Graph
-            </NavLink>
-          </li>
+          {store.getState().authState.user?.isAdmin && (
+            <li className="nav-item">
+              <NavLink
+                exact
+                to="/graph"
+                activeClassName="active"
+                className="nav-links"
+                onClick={handleClick}
+              >
+                Graph
+              </NavLink>
+            </li>
+          )|| <></>}
           <li className="nav-item">
             <NavLink
               exact
@@ -59,9 +62,24 @@ function NavBar(): JSX.Element {
               About us
             </NavLink>
           </li>
+          <li className="nav-item">
+            <NavLink
+              exact
+              to="/logout"
+              activeClassName="active"
+              className="nav-links"
+              onClick={handleClick}
+            >
+              Logout
+            </NavLink>
+          </li>
         </ul>
         <div className="nav-icon" onClick={handleClick}>
-          {click ? <CloseIcon className="icon" /> : <MenuIcon className="icon" />}
+          {click ? (
+            <CloseIcon className="icon" />
+          ) : (
+            <MenuIcon className="icon" />
+          )}
         </div>
       </div>
     </nav>

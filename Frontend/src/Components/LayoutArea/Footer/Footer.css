@@ -8,8 +8,8 @@
     flex-flow: column wrap;
     justify-content: center;
     justify-items: center;
-    background: #C0D8DB;
-    background: linear-gradient(90deg, #C0D8DB 18%,#C5DBD9 68%);
+    background: #039BE5;
+    background: radial-gradient(circle, #039BE5 27%, #0288D1 64%);
 }
 
 .Footer>.social-media-footer {
@@ -24,14 +24,18 @@
     cursor: pointer;
 }
 
+.logo>svg {
+    font-size: 1.76rem !important;
+}
+
 .linkedin-logo {
-    color: #0a66c2
+    color: #2962FF;
 }
 
 .instagram-logo {
-    color: #c32aa3
+    color: #c32aa3;
 }
 
 .github-logo {
-    color: black
+    color: black;
 }

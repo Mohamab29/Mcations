@@ -1,4 +1,10 @@
-import { Button, ButtonGroup, Paper, Typography } from "@material-ui/core";
+import {
+  Button,
+  ButtonGroup,
+  IconButton,
+  Paper,
+  Typography,
+} from "@material-ui/core";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { beautifyDate } from "../../../Helpers/HandleDate";
@@ -10,6 +16,9 @@ import jwtAxios from "../../../Services/jwtAxios";
 import notify from "../../../Services/Notify";
 import realTimeService from "../../../Services/RealTimeIO";
 import VacationPopup from "../VacationPopup/VacationPopup";
+import CreateIcon from "@material-ui/icons/Create";
+import DeleteIcon from "@material-ui/icons/Delete";
+import InfoIcon from "@material-ui/icons/Info";
 import "./AdminVacationCard.css";
 
 interface AdminVacationCardProps {
@@ -60,19 +69,22 @@ function AdminVacationCard(props: AdminVacationCardProps): JSX.Element {
             Price: $ {props.vacation.price}
           </Typography>
         </div>
-        <ButtonGroup variant="contained" className="card-btn-group">
-          <Button onClick={(e) => setPopupOpen(true)} className="update-icon">
-            Update
-          </Button>
-          <Button
+        <div className="card-btn-group">
+          <IconButton
+            onClick={(e) => setPopupOpen(true)}
+            className="update-icon"
+          >
+            <CreateIcon />
+          </IconButton>
+          <IconButton
             onClick={(e) =>
               history.push("/vacations/details/" + props.vacation.vacationId)
             }
             className="details-icon"
           >
-            Details
-          </Button>
-          <Button
+            <InfoIcon />
+          </IconButton>
+          <IconButton
             onClick={(e) =>
               handleDeletion(
                 props.vacation.vacationId,
@@ -81,9 +93,9 @@ function AdminVacationCard(props: AdminVacationCardProps): JSX.Element {
             }
             className="delete-icon"
           >
-            Delete
-          </Button>
-        </ButtonGroup>
+            <DeleteIcon />
+          </IconButton>
+        </div>
         <VacationPopup
           popupOpen={popupOpen}
           setPopupOpen={setPopupOpen}

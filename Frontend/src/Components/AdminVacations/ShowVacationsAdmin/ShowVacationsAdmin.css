@@ -1,18 +1,27 @@
 .ShowVacationsAdmin {
     position: relative;
-	display:flex;
+    display: flex;
     flex-flow: column nowrap;
-    justify-content:center;
-    align-items:center;
+    justify-content: center;
+    align-items: center;
 }
-.ShowVacationsAdmin >.card-container{
-    display:flex;
-    flex-flow:row wrap;
-    justify-content:center;
-    align-items:center;
+
+.ShowVacationsAdmin>.card-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
 }
-.ShowVacationsAdmin > .add-vacation{
-    position:absolute;
-    left:20px;
-    top:20px;
+
+.ShowVacationsAdmin>.add-vacation {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    background-color: #5885AF;
+}
+
+@media screen and (max-width:840px) {
+    .ShowVacationsAdmin>.card-container {
+        margin-top: 30px;
+    }
 }

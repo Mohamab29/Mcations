@@ -26,6 +26,7 @@ function ShowVacationsAdmin(): JSX.Element {
   useEffect(() => {
     (async () => {
       try {
+        document.title = "Available Vacations";
         if (!store.getState().authState.user) {
           notify.error("You are not logged in.");
           return history.replace("/login");
@@ -82,9 +83,6 @@ function ShowVacationsAdmin(): JSX.Element {
       </Button>
       {(!vacations.length && <LoadingGIF />) || (
         <>
-          <Typography variant="h2">
-            The available vacations in the database
-          </Typography>
           <div className="card-container">
             {vacations.map((v, index) => (
               <AdminVacationCard key={index} vacation={v} />

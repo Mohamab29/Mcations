@@ -40,6 +40,7 @@ function ShowVacationsUser(): JSX.Element {
   useEffect(() => {
     (async () => {
       try {
+          document.title="Available vacations"
         if (!store.getState().authState.user) {
           notify.error("You are not logged in.");
           return history.replace("/login");

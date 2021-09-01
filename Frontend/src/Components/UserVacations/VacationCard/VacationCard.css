@@ -1,5 +1,5 @@
 .card {
-    min-width:30vw;
+    min-width: 30vw;
     overflow: auto;
     max-width: 80vw;
     max-height: 600px;
@@ -9,7 +9,19 @@
     grid-template-rows: 70px 4fr 2fr;
     justify-items: center;
     align-items: center;
-    gap:1em;
+    row-gap: 1rem;
+}
+
+.card {
+    background: #CFF6FF !important;
+    border-radius: 40px 40px 40px 40px !important;
+    box-shadow: 0px 0px 13px 1px #74BBDE !important;
+    transition: border 0.6s linear 0s, border-radius 0.6s linear 0s, box-shadow 0.6s ease 0s !important;
+}
+
+.card:hover {
+    box-shadow: 0px 0px 27px 2px #81A6EB !important;
+    transition: border 0.6s linear 0s, border-radius 0.6s linear 0s, box-shadow 0.6s ease 0s;
 }
 
 .card .card-title, .card .card-footer {
@@ -17,13 +29,10 @@
 }
 
 .card .card-title {
-
     grid-area: 1/1;
 }
 
 .card>.fav-icon {
-    width: 50px;
-    height: 50px;
     grid-area: 1/2;
     margin-top: 10px;
     margin-right: 10px;
@@ -36,10 +45,32 @@
     margin-right: 10px;
 }
 
-.card>.follower-counter {
+.card>.fav-icon>span>svg {
+    font-size: 2.3rem;
+}
+
+.card>.details-icon>span>svg {
+    font-size: 2.3rem;
+    color: #2E8BC0;
+}
+
+.card>.followers-badge {
     grid-area: 2/2;
     margin-bottom: 10px;
     margin-right: 20px;
+}
+
+.card>.followers-badge {
+    padding: 0.8rem;
+    border-radius: 2rem;
+    font-size: 1.4rem;
+    font-weight: bolder;
+    color: #0C2D48;
+    background-color: #2E8BC0;
+}
+
+.card>.followers-badge:hover {
+    box-shadow: 1px 1px 5px 3px #2E8BC0;
 }
 
 .card>.card-footer {
@@ -47,7 +78,28 @@
     height: 80%;
 }
 
+.card>.card-footer>* {
+    color: #0C2D48;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
 .card>img {
     grid-row: 2/3;
     width: 70%;
+}
+
+@media screen and (max-width:680px) {
+    .card {
+        width: 80vw;
+        height: 60vh;
+    }
+    .card>.card-title {
+        margin-left: 0.9rem;
+        line-height: 20px;
+        width: 80%;
+    }
+    .card>img {
+        width: 90%;
+    }
 }

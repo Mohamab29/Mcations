@@ -1,4 +1,4 @@
-import { Paper, Typography } from "@material-ui/core";
+import { Button, Paper, Typography } from "@material-ui/core";
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -60,13 +60,16 @@ function VacationDetails(props: VacationDetailsProps): JSX.Element {
   };
   return (
     <div className="VacationDetails">
-      <NavLink to="/vacations" className="return-link">
+      <NavLink
+        to="/vacations"
+        className="return-link"        
+      >
         Back
       </NavLink>
       {!vacation && <LoadingGIF />}
       {vacation && (
-        <Paper variant="elevation" className="card-details">
-          <Typography variant="h6" className="card-title">
+        <Paper variant="elevation" className="details-card">
+          <Typography variant="h4" className="card-title">
             {vacation.destination}
           </Typography>
 
@@ -74,8 +77,11 @@ function VacationDetails(props: VacationDetailsProps): JSX.Element {
             src={config.vacationImagesURL + vacation.imageName}
             alt="card image"
             loading="lazy"
+            className="card-image"
           ></img>
-          <Typography variant="body2" >{vacation.description}</Typography>
+          <Typography variant="body2" className="description">
+            {vacation.description}
+          </Typography>
           <div className="card-footer">
             <Typography variant="body2">
               From: {beautifyDate(vacation.startDate)}

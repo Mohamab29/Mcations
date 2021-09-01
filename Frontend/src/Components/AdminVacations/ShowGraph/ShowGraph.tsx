@@ -7,7 +7,7 @@ import {
   Tooltip,
   ValueAxis,
 } from "@devexpress/dx-react-chart-material-ui";
-import { Paper, Typography } from "@material-ui/core";
+import { Paper } from "@material-ui/core";
 import { useEffect } from "react";
 import { useState } from "react";
 import config from "../../../Services/Config";
@@ -21,28 +21,39 @@ interface FollowedVacations {
 }
 
 function ShowGraph(): JSX.Element {
-  const [followedVacations, setFollowedVacations] =
-    useState<FollowedVacations[]>([]);
+  const [followedVacations, setFollowedVacations] = useState<
+    FollowedVacations[]
+  >([]);
   useEffect(() => {
     (async () => {
       try {
-        const response = await jwtAxios.get<FollowedVacations[]>(config.getAllFollowedVacations);
+        document.title = "Followers Graph";
+        const response = await jwtAxios.get<FollowedVacations[]>(
+          config.getAllFollowedVacations
+        );
         setFollowedVacations(response.data);
       } catch (error) {
         notify.error(error);
       }
     })();
   }, [followedVacations]);
-
+  const getWindowSize = () => {
+    return window.innerWidth;
+  };
   return (
     <div className="ShowGraph">
-      <Typography variant="h2">Show followed vacation graph</Typography>
       <Paper variant="elevation" className="graph-container">
-        <Chart data={followedVacations}>
+        <Chart
+          data={followedVacations}
+        >
           <ArgumentAxis />
           <ValueAxis />
 
-          <BarSeries valueField="followerNumber" argumentField="destination" />
+          <BarSeries
+            valueField="followerNumber"
+            argumentField="destination"
+            barWidth={0.5}
+          />
           <Title text="Followed Vacations" />
           <EventTracker />
           <Tooltip />

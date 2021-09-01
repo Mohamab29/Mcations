@@ -1,4 +1,4 @@
-import { Button, Paper, Typography } from "@material-ui/core";
+import { Button, IconButton, Paper, Typography } from "@material-ui/core";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -9,6 +9,9 @@ import store from "../../../Redux/Store";
 import config from "../../../Services/Config";
 import jwtAxios from "../../../Services/jwtAxios";
 import notify from "../../../Services/Notify";
+import InfoIcon from "@material-ui/icons/Info";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 import "./VacationCard.css";
 
 interface VacationCardProps {
@@ -17,6 +20,9 @@ interface VacationCardProps {
 
 function VacationCard(props: VacationCardProps): JSX.Element {
   const [numOfFollowers, setNumOfFollowers] = useState(0);
+  const [isFollowing, setIsFollowing] = useState(false);
+  const userId = store.getState().authState.user.userId;
+
   const history = useHistory();
   useEffect(() => {
     (async () => {
@@ -24,6 +30,10 @@ function VacationCard(props: VacationCardProps): JSX.Element {
         const response = await jwtAxios.get<FollowerModel[]>(
           config.getAllFollowersForVacation + props.vacation.vacationId
         );
+        const found = response.data.find((v) => v.userId === userId);
+        if (found) {
+          setIsFollowing(true);
+        }
         setNumOfFollowers(response.data.length);
       } catch (error) {
         notify.error(error);
@@ -31,10 +41,8 @@ function VacationCard(props: VacationCardProps): JSX.Element {
     })();
   }, [props.vacation.vacationId]);
 
-
   const updateFollow = async (vacationId: string) => {
     try {
-      const userId = store.getState().authState.user.userId;
       const response = await jwtAxios.post<FollowerModel | boolean>(
         config.followersURL,
         {
@@ -47,12 +55,11 @@ function VacationCard(props: VacationCardProps): JSX.Element {
           config.followersURL + vacationId + "/" + userId
         );
         setNumOfFollowers(numOfFollowers - 1);
+        setIsFollowing(false);
       } else {
         setNumOfFollowers(numOfFollowers + 1);
+        setIsFollowing(true);
       }
-
-
-
     } catch (error) {
       notify.error(error);
     }
@@ -60,26 +67,26 @@ function VacationCard(props: VacationCardProps): JSX.Element {
   return (
     <>
       <Paper variant="elevation" className="card">
-        <Button
+        <IconButton
           onClick={(e) => updateFollow(props.vacation.vacationId)}
-          variant="contained"
           className="fav-icon"
         >
-          Fav
-        </Button>
-        <Button
+          {isFollowing ? (
+            <FavoriteIcon color="secondary" />
+          ) : (
+            <FavoriteBorderIcon color="secondary" />
+          )}
+        </IconButton>
+        <IconButton
           onClick={(e) =>
             history.push("/vacations/details/" + props.vacation.vacationId)
           }
-          variant="contained"
           className="details-icon"
         >
-          Details
-        </Button>
+          <InfoIcon />
+        </IconButton>
         {(numOfFollowers && (
-          <Typography variant="body2" className="follower-counter">
-            Followers: {numOfFollowers}
-          </Typography>
+          <span className="followers-badge">{numOfFollowers}</span>
         )) || <></>}
         <Typography variant="h6" className="card-title">
           {props.vacation.destination}
