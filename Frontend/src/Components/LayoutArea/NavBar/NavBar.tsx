@@ -16,7 +16,6 @@ function NavBar(): JSX.Element {
           <img src={Logo} alt="app-logo" />
         </NavLink>
         <ul className={click ? "nav-menu active" : "nav-menu"}>
-
           <li className="nav-item">
             <NavLink
               exact
@@ -28,7 +27,7 @@ function NavBar(): JSX.Element {
               Vacations
             </NavLink>
           </li>
-          {store.getState().authState.user?.isAdmin && (
+          {(store.getState().authState.user?.isAdmin && (
             <li className="nav-item">
               <NavLink
                 exact
@@ -40,18 +39,19 @@ function NavBar(): JSX.Element {
                 Graph
               </NavLink>
             </li>
-          )|| <></>}
-          <li className="nav-item">
-            <NavLink
-              exact
-              to="/"
-              activeClassName="active"
-              className="nav-links"
-              onClick={handleClick}
-            >
-              About us
-            </NavLink>
-          </li>
+          )) || (
+            <li className="nav-item">
+              <NavLink
+                exact
+                to="/"
+                activeClassName="active"
+                className="nav-links"
+                onClick={handleClick}
+              >
+                Contact Us
+              </NavLink>
+            </li>
+          )}
           <li className="nav-item">
             <NavLink
               exact

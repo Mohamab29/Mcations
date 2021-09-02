@@ -11,9 +11,11 @@ function Logout(): JSX.Element {
   const history = useHistory();
   useEffect(() => {
     store.dispatch({ type: AuthActionType.UserLoggedOut });
-    realTimeService.disconnect();
+    if (realTimeService.isConnected()) {
+      realTimeService.disconnect();
+    }
     notify.success("You are now logged out");
-    document.title="Mcations"
+    document.title = "Mcations";
     history.replace("/welcome-page");
   });
   return null;

@@ -87,3 +87,10 @@ form>.TextBox~span {
     color:#179BFA;
     transition: all .5s ease;
 }
+@media screen and (max-width:780px) {
+    .Register .register-wrapper {
+        margin-top:2rem;
+        width: 80vw;
+        height: 70vh;
+    }
+}

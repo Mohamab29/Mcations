@@ -10,6 +10,8 @@ import {
 import { Paper } from "@material-ui/core";
 import { useEffect } from "react";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
+import store from "../../../Redux/Store";
 import config from "../../../Services/Config";
 import jwtAxios from "../../../Services/jwtAxios";
 import notify from "../../../Services/Notify";
@@ -21,6 +23,7 @@ interface FollowedVacations {
 }
 
 function ShowGraph(): JSX.Element {
+    const history = useHistory()
   const [followedVacations, setFollowedVacations] = useState<
     FollowedVacations[]
   >([]);
@@ -28,6 +31,13 @@ function ShowGraph(): JSX.Element {
     (async () => {
       try {
         document.title = "Followers Graph";
+        if (!store.getState().authState.user) {
+          notify.error("You are not logged in.");
+          return history.replace("/login");
+        } else if (!store.getState().authState.user.isAdmin) {
+          notify.error("You are not authorized to enter here!");
+          return history.replace("/vacations");
+        }
         const response = await jwtAxios.get<FollowedVacations[]>(
           config.getAllFollowedVacations
         );
@@ -43,9 +53,7 @@ function ShowGraph(): JSX.Element {
   return (
     <div className="ShowGraph">
       <Paper variant="elevation" className="graph-container">
-        <Chart
-          data={followedVacations}
-        >
+        <Chart data={followedVacations}>
           <ArgumentAxis />
           <ValueAxis />
 

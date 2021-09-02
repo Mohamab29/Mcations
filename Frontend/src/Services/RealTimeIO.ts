@@ -11,6 +11,9 @@ class RealTimeService {
     }
     this.socket = io("http://localhost:3001");
   }
+  public isConnected(): Boolean {
+    return this.socket ? (this.socket.connected ? true : false) : false;
+  }
   public vacationAdded(updateState: Function) {
     this.socket.on("vacation-added", (vacation) => updateState(vacation));
   }
