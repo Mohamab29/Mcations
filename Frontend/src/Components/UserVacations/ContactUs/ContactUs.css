@@ -1,3 +1,69 @@
 .ContactUs {
-	
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ContactUs .message-container {
+    width: 700px;
+    height: 700px;
+    display: grid;
+    grid-template-rows: 2fr 1fr 5fr;
+    align-items: center;
+    color: #1F6899 !important;
+    text-align: center;
+}
+
+.ContactUs .subtitle {
+    font-size: 1rem;
+    font-weight: bolder;
+    text-align: left;
+    margin-left: 1.2rem;
+}
+
+.ContactUs form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.ContactUs form .TextBox{
+    width: 60%;
+    margin: 5px 0;
+}
+
+.ContactUs form>button {
+    width: 30%;
+    background-color: #1F6899;
+    transition: all .5s ease;
+}
+.ContactUs form>button:hover {
+    background-color: #00E676;
+    transition: all .5s ease;
+}
+.ContactUs form .TextBox~span {
+    text-align: center;
+    color: red;
+    margin: 0 20px;
+}
+
+@media  screen and (max-width:680px) {
+    .ContactUs .message-container {
+        margin-top:2rem;
+        width: 90vw;
+        height: 100%;
+    }
+    .ContactUs .title {
+        margin-top:2rem;
+        font-size: 2rem;
+        font-weight: bolder;
+    }
+    .ContactUs .subtitle {
+        font-size: 1rem;
+        font-weight: bolder;
+    }
 }

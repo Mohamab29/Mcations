@@ -9,6 +9,7 @@ import Login from "../../AuthArea/Login/Login";
 import Logout from "../../AuthArea/Logout/Logout";
 import Register from "../../AuthArea/Register/Register";
 import WelcomePage from "../../HomeArea/WelcomePage/WelcomePage";
+import ContactUs from "../../UserVacations/ContactUs/ContactUs";
 import ShowVacationsUser from "../../UserVacations/ShowVacationsUser/ShowVacationsUser";
 import VacationDetails from "../../UserVacations/VacationDetails/VacationDetails";
 import PageNotFound from "../PageNotFound/PageNotFound";
@@ -35,14 +36,14 @@ function Routing(): JSX.Element {
           />
         )}
         <Route path="/graph" component={ShowGraph} exact />
-
+        <Route path="/contact-us" component={ContactUs} exact />
         <Route path="/login" component={Login} exact />
         <Route path="/logout" component={Logout} exact />
         <Route path="/register" component={Register} exact />
         <Route path="/welcome-page" component={WelcomePage} exact />
-        {((_.isEmpty(user) || !user) && <Redirect from="/" to="/welcome-page" exact />) || (
-          <Redirect from="/" to="/vacations" exact />
-        )}
+        {((_.isEmpty(user) || !user) && (
+          <Redirect from="/" to="/welcome-page" exact />
+        )) || <Redirect from="/" to="/vacations" exact />}
         <Route component={PageNotFound} />
       </Switch>
     </>

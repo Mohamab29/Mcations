@@ -91,7 +91,7 @@ function ShowVacationsUser(): JSX.Element {
     <div className="ShowVacationsUser">
       {(vacations.length === 0 && <LoadingGIF />) || (
         <>
-          <Typography variant="h2">The available vacations</Typography>
+          <Typography variant="h2" className="title">The available vacations</Typography>
           <div className="cards">
             {vacations.map((v, index) => (
               <VacationCard key={index} vacation={v} />

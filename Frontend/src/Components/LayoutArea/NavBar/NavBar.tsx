@@ -43,7 +43,7 @@ function NavBar(): JSX.Element {
             <li className="nav-item">
               <NavLink
                 exact
-                to="/"
+                to="/contact-us"
                 activeClassName="active"
                 className="nav-links"
                 onClick={handleClick}
