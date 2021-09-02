@@ -1,0 +1,101 @@
+.WelcomePage {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.hero {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    color:#1F6899;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.hero>.app-logo {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.app-logo>img {
+    margin-left: 0;
+    width: 35%;
+    height: 55%;
+}
+
+.hero>h1, .hero>span {
+    font: sans-serif;
+}
+
+.hero>h1 {
+    margin-top: 0;
+    font: normal 600 72px/1 sans-serif;
+}
+
+.hero>span {
+    display: flex;
+    flex-flow: row wrap;
+    margin-top: 1em;
+    font-size: 40px;
+    font-weight: 300;
+}
+
+.hero span~span {
+    margin-top: 0;
+}
+
+.hero>.hero-buttons {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+}
+
+.hero-buttons>button {
+    width: 8rem;
+    padding: 10px;
+    margin: 2em;
+    margin-left: 0;
+    background-color: #1F6899;
+    transition: all .5s ease;
+}
+
+.hero-buttons>button:hover {
+    background-color: #00E676;
+    transition: all .5s ease;
+}
+
+@media screen and (max-width:790px) {
+    .hero {
+        text-align: left;
+    }
+    .hero>h1 {
+        font: 3rem sans-serif;
+    }
+}
+
+@media screen and (max-width:480px) {
+    .hero {
+        text-align: left;
+    }
+    .hero>h1 {
+        font: 1.9rem sans-serif;
+    }
+    .hero>span {
+        display: flex;
+        flex-flow: row wrap;
+        margin-top: 1em;
+        font-size: 1.5rem;
+        font-weight: 300;
+    }
+    .hero-buttons>button {
+        width: 7rem;
+        padding: 5px;
+        margin-left: 0;
+    }
+}

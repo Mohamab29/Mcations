@@ -1,13 +1,18 @@
-.form-content  {
-
+.form-content {
     width: 500px;
     height: 60vh;
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
-.form-dialog-title{
-    width: 100%;
 
+
+.form-dialog-title > .MuiTypography-root {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form-dialog-title > h2 > h6{
+    flex-grow: 1;
 }

@@ -1,13 +1,5 @@
-import {
-  Button,
-  FormControl,
-  Input,
-  InputLabel,
-  withStyles,
-} from "@material-ui/core";
-import { TextField } from "@material-ui/core";
-import { SyntheticEvent, useRef } from "react";
-import { useEffect, useState } from "react";
+import { Button, FormControl, Input, InputLabel } from "@material-ui/core";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { checkStartEndDate } from "../../../Helpers/HandleDate";
 import VacationModel from "../../../Models/VacationModel";
@@ -34,7 +26,9 @@ function UpdateVacation(props: UpdateVacationProps): JSX.Element {
 
   async function send(vacation: VacationModel) {
     try {
-      const isSure = window.confirm("Are you sure you want to update this vacation?");
+      const isSure = window.confirm(
+        "Are you sure you want to update this vacation?"
+      );
       if (!isSure) return;
       const checked = checkStartEndDate(vacation.startDate, vacation.endDate);
       if (!checked.answer) {
@@ -67,23 +61,7 @@ function UpdateVacation(props: UpdateVacationProps): JSX.Element {
       notify.error(error);
     }
   }
-  const ValidationTextField = withStyles({
-    root: {
-      "& input:valid + fieldset": {
-        borderColor: "green",
-        borderWidth: 2,
-      },
-      "& input:invalid + fieldset": {
-        borderColor: "red",
-        borderWidth: 2,
-      },
-      "& input:valid:focus + fieldset": {
-        borderLeftWidth: 6,
-        padding: "4px !important", // override inline-style
-      },
-    },
-  })(TextField);
-
+  const isoDate = (date:string) => date.split("T")[0];
   return (
     <div className="UpdateVacation">
       <form onSubmit={handleSubmit(send)}>
@@ -123,7 +101,7 @@ function UpdateVacation(props: UpdateVacationProps): JSX.Element {
         {errors.description?.type === "maxLength" && (
           <span>A description should be at most 1500 characters</span>
         )}
-        {/* <FormControl className="TextBox">
+        <FormControl className="TextBox">
           <InputLabel htmlFor="component-price">Price</InputLabel>
           <Input
             type="number"
@@ -136,32 +114,7 @@ function UpdateVacation(props: UpdateVacationProps): JSX.Element {
               max: 10000,
             })}
           />
-        </FormControl> */}
-        <ValidationTextField
-          className="TextBox"
-          label="Price"
-          inputProps={{ step: "0.01" }}
-          variant="outlined"
-          defaultValue={vacation.price}
-          id="validation-outlined-input"
-          {...register("price", {
-            min: 0,
-            max: 10000,
-          })}
-        />
-        {/* <FormControl className="TextBox">
-          <InputLabel htmlFor="component-price">Price</InputLabel>
-          <Input
-            type="number"
-            id="component-price"
-            
-            {...register("price", {
-              required: true,
-              min: 0,
-              max: 10000,
-            })}
-          />
-        </FormControl> */}
+        </FormControl>
 
         {errors.price?.type === "min" && (
           <span>A price cannot be negative</span>
@@ -176,7 +129,7 @@ function UpdateVacation(props: UpdateVacationProps): JSX.Element {
           <Input
             type="date"
             id="component-from"
-            defaultValue={vacation.startDate}
+            defaultValue={isoDate(vacation.startDate)}
             {...register("startDate", {
               required: true,
             })}
@@ -192,7 +145,7 @@ function UpdateVacation(props: UpdateVacationProps): JSX.Element {
           <Input
             type="date"
             id="component-to"
-            defaultValue={vacation.endDate}
+            defaultValue={isoDate(vacation.endDate)}
             {...register("endDate", {
               required: true,
             })}
@@ -202,7 +155,9 @@ function UpdateVacation(props: UpdateVacationProps): JSX.Element {
           <span>Please enter an end date</span>
         )}
         <FormControl className="TextBox">
-          <InputLabel htmlFor="component-image">Upload an image</InputLabel>
+          <InputLabel htmlFor="component-image" shrink={true}>
+            Upload an image
+          </InputLabel>
           <Input
             type="file"
             id="component-image"

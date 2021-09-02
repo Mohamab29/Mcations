@@ -1,15 +1,16 @@
 import { TextField, Typography } from "@material-ui/core";
 import { Button, Paper } from "@material-ui/core";
 import axios from "axios";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import CredentialsModel from "../../../Models/CredentialsModel";
 import UserModel from "../../../Models/UserModel";
 import { AuthActionType } from "../../../Redux/AuthState";
 import store from "../../../Redux/Store";
 import config from "../../../Services/Config";
 import notify from "../../../Services/Notify";
-import realTimeService from "../../../Services/RealTimeIO";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import "./Login.css";
 
 function Login(): JSX.Element {
@@ -21,9 +22,14 @@ function Login(): JSX.Element {
   } = useForm<CredentialsModel>({
     mode: "onBlur",
   });
+  useEffect(() => {
+    document.title = "Login page";
+    if (store.getState().authState.user) {
+      history.replace("/vacations");
+    }
+  }, []);
   async function send(credentials: CredentialsModel) {
     try {
-      console.log(credentials);
       const response = await axios.post<UserModel>(
         config.loginURL,
         credentials
@@ -42,7 +48,10 @@ function Login(): JSX.Element {
   }
 
   return (
-    <div className="Login">
+    <div className="Login welcome-bg">
+      <NavLink to="/welcome-page" className="back-home" exact>
+        <ArrowBackIcon />
+      </NavLink>
       <Paper className="login-wrapper">
         <Typography variant="h3">Login</Typography>
         <form onSubmit={handleSubmit(send)}>
@@ -70,9 +79,12 @@ function Login(): JSX.Element {
             <span>Please enter your password</span>
           )}
 
-          <Button type="submit" variant="contained" color="primary">
+          <Button type="submit" variant="contained">
             Enter
           </Button>
+          <NavLink to="/register" exact className="link-to-register">
+            Don't have a user ?
+          </NavLink>
         </form>
       </Paper>
     </div>

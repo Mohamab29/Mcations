@@ -4,8 +4,23 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #fafa;
 }
+
+.Register .back-home{
+    position: absolute;
+    left:30px;
+    top:30px;
+    width:50px;
+    height:50px;
+}
+.Register .back-home >svg {
+    font-size: 3.5rem;
+    color:#1F6899;
+}
+.Register .back-home >svg:hover {
+    font-size: 3.5rem;
+    color:#179BFA;
+} 
 
 .Register .register-wrapper {
     width: 35vw;
@@ -45,4 +60,30 @@ form>.TextBox~span {
     width: 40%;
     align-self: center;
     margin-bottom: 20px;
+}
+.register-wrapper form > button {
+    width: 50%;
+    align-self: center;
+    background-color:#1F6899;
+    transition: all .5s ease;
+
+}
+.register-wrapper form > button:hover {
+    width: 55%;
+    background-color:#00E676;
+    transition: all .5s ease;
+}
+.register-wrapper a {
+    width: 50%;
+    align-self: center;
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+    color:#1F6899;
+    transition: all .5s ease;
+
+}
+.register-wrapper a:hover {
+    color:#179BFA;
+    transition: all .5s ease;
 }

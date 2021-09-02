@@ -8,6 +8,7 @@ function Footer(): JSX.Element {
   return (
     <div className="Footer">
       <div className="social-media-footer">
+        
         <NavLink
           className="logo"
           to={{

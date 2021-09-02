@@ -13,7 +13,8 @@ function Logout(): JSX.Element {
     store.dispatch({ type: AuthActionType.UserLoggedOut });
     realTimeService.disconnect();
     notify.success("You are now logged out");
-    history.replace("/home");
+    document.title="Mcations"
+    history.replace("/welcome-page");
   });
   return null;
 }

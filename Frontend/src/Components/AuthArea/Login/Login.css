@@ -1,10 +1,25 @@
 .Login {
+    position: relative;
     height: 100%;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #fafa;
+}
+.Login .back-home{
+    position: absolute;
+    left:30px;
+    top:30px;
+    width:50px;
+    height:50px;
+}
+.Login .back-home >svg {
+    font-size: 3.5rem;
+    color:#1F6899;
+}
+.Login .back-home >svg:hover {
+    font-size: 3.5rem;
+    color:#179BFA;
 }
 
 .Login .login-wrapper {
@@ -26,6 +41,9 @@
     align-items: center;
 }
 
+.login-wrapper > h3 {
+    color:#1F6899;
+}
 .login-wrapper .TextBox {
     width: 100%;
 }
@@ -41,4 +59,26 @@
 .login-wrapper button {
     width: 50%;
     align-self: center;
+    background-color:#1F6899;
+    transition: all .5s ease;
+
+}
+.login-wrapper button:hover {
+    width: 55%;
+    background-color:#00E676;
+    transition: all .5s ease;
+}
+.login-wrapper a {
+    width: 50%;
+    align-self: center;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    color:#1F6899;
+    transition: all .5s ease;
+
+}
+.login-wrapper a:hover {
+    color:#179BFA;
+    transition: all .5s ease;
 }

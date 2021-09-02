@@ -1,12 +1,15 @@
 import { Button, Paper, TextField, Typography } from "@material-ui/core";
 import axios from "axios";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import UserModel from "../../../Models/UserModel";
 import { AuthActionType } from "../../../Redux/AuthState";
 import store from "../../../Redux/Store";
 import config from "../../../Services/Config";
 import notify from "../../../Services/Notify";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+
 import "./Register.css";
 
 function Register(): JSX.Element {
@@ -16,6 +19,12 @@ function Register(): JSX.Element {
     handleSubmit,
     formState: { errors },
   } = useForm<UserModel>({ mode: "onBlur" });
+  useEffect(() => {
+    document.title = "Register page";
+    if (store.getState().authState.user) {
+      history.replace("/vacations");
+    }
+  }, []);
   async function send(user: UserModel) {
     try {
       const response = await axios.post<UserModel>(config.registerURL, user);
@@ -31,7 +40,10 @@ function Register(): JSX.Element {
     }
   }
   return (
-    <div className="Register">
+    <div className="Register welcome-bg">
+      <NavLink to="/welcome-page" className="back-home" exact>
+        <ArrowBackIcon />
+      </NavLink>
       <Paper className="register-wrapper">
         <Typography variant="h3">Register</Typography>
         <form onSubmit={handleSubmit(send)}>
@@ -142,6 +154,9 @@ function Register(): JSX.Element {
           <Button type="submit" variant="contained" color="primary">
             Submit
           </Button>
+          <NavLink to="/login" exact className="link-to-login">
+            Already have a user ?
+          </NavLink>
         </form>
       </Paper>
     </div>

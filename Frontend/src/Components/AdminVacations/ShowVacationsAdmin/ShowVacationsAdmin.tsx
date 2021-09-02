@@ -32,7 +32,7 @@ function ShowVacationsAdmin(): JSX.Element {
           return history.replace("/login");
         } else if (!store.getState().authState.user.isAdmin) {
           notify.error("You are not authorized to enter here!");
-          return history.replace("/home");
+          return history.replace("/logout");
         }
         // establishing a connection with the server
         realTimeService.connect();
