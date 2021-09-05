@@ -40,9 +40,17 @@ async function loginAsync(credentials) {
     user.token = cryptoHelper.getNewToken(user);
     return user;
 }
+async function getUserById(userId) {
+    const sql = "SELECT userId, firstName, lastName, username, isAdmin FROM users WHERE userId = ?";
+    const users = await dal.executeAsync(sql, [userId]);
+    if (users.length === 0) return null;
+    const user = users[0]; // because we get an array and in it is the user object 
+    return user;
+}
 
 module.exports = {
     registerAsync,
     loginAsync,
-    isUniqueUsername
+    isUniqueUsername,
+    getUserById
 };

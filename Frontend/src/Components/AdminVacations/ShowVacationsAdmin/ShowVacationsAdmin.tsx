@@ -1,4 +1,4 @@
-import { Button, Typography } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -17,6 +17,7 @@ import VacationPopup from "../VacationPopup/VacationPopup";
 import AddIcon from "@material-ui/icons/Add";
 import "./ShowVacationsAdmin.css";
 import realTimeService from "../../../Services/RealTimeIO";
+import _ from "lodash";
 
 function ShowVacationsAdmin(): JSX.Element {
   const history = useHistory();
@@ -27,15 +28,17 @@ function ShowVacationsAdmin(): JSX.Element {
     (async () => {
       try {
         document.title = "Available Vacations";
-        if (!store.getState().authState.user) {
+        if (!store.getState().authState.user || _.isEmpty(store.getState().authState.user)) {
           notify.error("You are not logged in.");
           return history.replace("/login");
         } else if (!store.getState().authState.user.isAdmin) {
           notify.error("You are not authorized to enter here!");
-          return history.replace("/logout");
+          return history.replace("/");
         }
         // establishing a connection with the server
-        realTimeService.connect();
+        if (!realTimeService.isConnected()) {
+            realTimeService.connect();
+        }
         if (store.getState().vacationsState.vacations.length === 0) {
           const response = await jwtAxios.get<VacationModel[]>(
             config.vacationsURL
@@ -51,7 +54,7 @@ function ShowVacationsAdmin(): JSX.Element {
         if (axios.isAxiosError(error) && error.response) {
           notify.error(error);
           if (error.response.status === 401) {
-            return history.replace("/register");
+            return history.replace("/");
           } else if (error.response.status === 403) {
             store.dispatch({
               type: AuthActionType.UserLoggedOut,
@@ -67,7 +70,7 @@ function ShowVacationsAdmin(): JSX.Element {
       setVacations([...store.getState().vacationsState.vacations]);
     });
     return () => unsubscribe();
-  }, []);
+  },[]);
 
   return (
     <div className="ShowVacationsAdmin">

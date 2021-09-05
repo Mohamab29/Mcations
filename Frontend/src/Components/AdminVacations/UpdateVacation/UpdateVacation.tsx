@@ -1,5 +1,4 @@
 import { Button, FormControl, Input, InputLabel } from "@material-ui/core";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { checkStartEndDate } from "../../../Helpers/HandleDate";
 import VacationModel from "../../../Models/VacationModel";
@@ -22,7 +21,7 @@ function UpdateVacation(props: UpdateVacationProps): JSX.Element {
     handleSubmit,
     formState: { errors },
   } = useForm<VacationModel>({ mode: "onBlur" });
-  const [vacation, setVacation] = useState<VacationModel>(props.vacation);
+  const vacation = props.vacation;
 
   async function send(vacation: VacationModel) {
     try {

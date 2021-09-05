@@ -1,4 +1,4 @@
-import { Button } from "@material-ui/core";
+import { Button, FormControl, Input, InputLabel } from "@material-ui/core";
 import { TextField } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 import { checkStartEndDate } from "../../../Helpers/HandleDate";
@@ -47,7 +47,7 @@ function AddVacation(props: AddVacationProps): JSX.Element {
         type: VacationsActionType.VacationAdded,
         payload: response.data,
       });
-      realTimeService.addVacation(response.data);
+        realTimeService.addVacation(response.data);
       notify.success("vacation added successfully.");
       props.setPopupOpen(false);
     } catch (error) {
@@ -116,27 +116,33 @@ function AddVacation(props: AddVacationProps): JSX.Element {
         {errors.price?.type === "max" && (
           <span>A price can be maximum $10000</span>
         )}
-        <TextField
-          type="date"
-          label="from"
-          variant="standard"
-          className="TextBox"
-          {...register("startDate", {
-            required: true,
-          })}
-        />
+        <FormControl className="TextBox">
+          <InputLabel htmlFor="component-from" shrink={true}>
+            From
+          </InputLabel>
+          <Input
+            type="date"
+            id="component-from"
+            {...register("startDate", {
+              required: true,
+            })}
+          />
+        </FormControl>
         {errors.startDate?.type === "required" && (
           <span>Please enter a start date</span>
         )}
-        <TextField
-          type="date"
-          label="to"
-          variant="standard"
-          className="TextBox"
-          {...register("endDate", {
-            required: true,
-          })}
-        />
+        <FormControl className="TextBox">
+          <InputLabel htmlFor="component-to" shrink={true}>
+            To
+          </InputLabel>
+          <Input
+            type="date"
+            id="component-to"
+            {...register("endDate", {
+              required: true,
+            })}
+          />
+        </FormControl>
         {errors.endDate?.type === "required" && (
           <span>Please enter an end date</span>
         )}

@@ -1,4 +1,4 @@
-import { Button, IconButton, Paper, Typography } from "@material-ui/core";
+import { IconButton, Paper, Typography } from "@material-ui/core";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -94,7 +94,7 @@ function VacationCard(props: VacationCardProps): JSX.Element {
 
         <img
           src={config.vacationImagesURL + props.vacation.imageName}
-          alt="card image"
+          alt=""
           loading="lazy"
         ></img>
 

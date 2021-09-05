@@ -25,7 +25,7 @@ function Routing(): JSX.Element {
   return (
     <>
       <Switch>
-        {(user?.isAdmin && (
+      {(user?.isAdmin && (
           <Route path="/vacations" component={ShowVacationsAdmin} exact />
         )) || <Route path="/vacations" component={ShowVacationsUser} exact />}
         {user && (
@@ -35,15 +35,17 @@ function Routing(): JSX.Element {
             exact
           />
         )}
+
+        <Route path="/welcome-page" component={WelcomePage} exact />
         <Route path="/graph" component={ShowGraph} exact />
         <Route path="/contact-us" component={ContactUs} exact />
         <Route path="/login" component={Login} exact />
         <Route path="/logout" component={Logout} exact />
         <Route path="/register" component={Register} exact />
-        <Route path="/welcome-page" component={WelcomePage} exact />
         {((_.isEmpty(user) || !user) && (
           <Redirect from="/" to="/welcome-page" exact />
         )) || <Redirect from="/" to="/vacations" exact />}
+
         <Route component={PageNotFound} />
       </Switch>
     </>

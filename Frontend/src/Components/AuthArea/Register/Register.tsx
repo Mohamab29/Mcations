@@ -11,6 +11,7 @@ import notify from "../../../Services/Notify";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 import "./Register.css";
+import _ from "lodash";
 
 function Register(): JSX.Element {
   const history = useHistory();
@@ -21,8 +22,13 @@ function Register(): JSX.Element {
   } = useForm<UserModel>({ mode: "onBlur" });
   useEffect(() => {
     document.title = "Register page";
-    if (store.getState().authState.user) {
-      history.replace("/vacations");
+    if (
+      store.getState().authState.user &&
+      _.isEmpty(store.getState().authState.user)
+    ) {
+      return history.replace("/login");
+    } else if (store.getState().authState.user) {
+      return history.replace("/");
     }
   }, []);
   async function send(user: UserModel) {
@@ -124,6 +130,7 @@ function Register(): JSX.Element {
             <span>A username should be at most 30 letters long</span>
           )}
           <TextField
+          type="password"
             label="Password"
             variant="standard"
             className="TextBox"

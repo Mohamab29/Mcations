@@ -12,6 +12,7 @@ import config from "../../../Services/Config";
 import notify from "../../../Services/Notify";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import "./Login.css";
+import _ from "lodash";
 
 function Login(): JSX.Element {
   const history = useHistory();
@@ -24,10 +25,14 @@ function Login(): JSX.Element {
   });
   useEffect(() => {
     document.title = "Login page";
-    if (store.getState().authState.user) {
-      history.replace("/vacations");
+    if (
+      _.isEmpty(store.getState().authState.user)
+    ) {
+      return history.replace("/login");
+    }else if(store.getState().authState.user){
+        return history.replace("/")
     }
-  }, []);
+  },[]);
   async function send(credentials: CredentialsModel) {
     try {
       const response = await axios.post<UserModel>(

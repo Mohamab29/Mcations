@@ -1,11 +1,14 @@
 import { Button } from "@material-ui/core";
+import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import Logo from "../../../assets/images/logo.png";
 import "./WelcomePage.css";
 
 function WelcomePage(): JSX.Element {
   const history = useHistory();
-
+    useEffect(()=>{
+        document.title="Mcations"   
+    },[])
   return (
     <div className="WelcomePage welcome-bg">
       <div className="hero">

@@ -4,7 +4,8 @@ const errorsHelper = require("../helpers/errors-helper");
 const User = require("../models/user");
 const Credentials = require("../models/credentials");
 const router = express.Router();
-
+const uuidValidateV4 = require("../middleware/check-uuid");
+const verifyLoggedIn = require("../middleware/verify-logged-in");
 // POST Register : */api/auth/register 
 router.post("/register", async (request, response) => {
     try {
@@ -44,6 +45,24 @@ router.post("/login", async (request, response) => {
 
         // Success: 
         response.json(loggedInUser);
+    }
+    catch (error) {
+        errorsHelper.internalServerError(response, error);
+    }
+});
+
+// GET user by id */api/auth/get-user/:uuid
+router.get("/get-user/:uuid", verifyLoggedIn, uuidValidateV4, async (request, response) => {
+    try {
+        // Data: 
+        const userId = request.params.uuid;
+
+        // Logic: 
+        const user = await authLogic.getUserById(userId);
+        if (!user) return response.status(400).send("User with this id was not found.");
+
+        // Success: 
+        response.json(user);
     }
     catch (error) {
         errorsHelper.internalServerError(response, error);

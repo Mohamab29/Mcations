@@ -1,5 +1,6 @@
 import { Button, Paper, TextField, Typography } from "@material-ui/core";
-import { useEffect, useState } from "react";
+import _ from "lodash";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
 import store from "../../../Redux/Store";
@@ -19,20 +20,25 @@ function ContactUs(): JSX.Element {
   } = useForm<ContactUsForm>();
   useEffect(() => {
     document.title = "Contact us";
-    if (!store.getState().authState.user) {
+    if (
+      !store.getState().authState.user ||
+      _.isEmpty(store.getState().authState.user)
+    ) {
       notify.error("You are not logged in.");
       return history.replace("/login");
     }
-  }, []);
+  });
 
   function send() {
     notify.success("Your message has been sent");
-    history.push("/vacations")
+    history.push("/vacations");
   }
   return (
     <div className="ContactUs">
       <Paper className="message-container">
-        <Typography variant="h3" className="title">Send us a message</Typography>
+        <Typography variant="h3" className="title">
+          Send us a message
+        </Typography>
         <Typography variant="body2" className="subtitle">
           At Mcations we believe that every customer is right, So please if you
           have any complaints or suggestions send us a message.
@@ -43,9 +49,9 @@ function ContactUs(): JSX.Element {
             variant="standard"
             className="TextBox"
             defaultValue={
-              store.getState().authState.user.firstName +
+              store.getState().authState.user?.firstName +
               " " +
-              store.getState().authState.user.lastName
+              store.getState().authState.user?.lastName
             }
             {...register("from", {
               required: true,
@@ -79,7 +85,9 @@ function ContactUs(): JSX.Element {
           {errors.message?.type === "required" && (
             <span>Please provide a message</span>
           )}
-          <Button variant="contained" type="submit">Send</Button>
+          <Button variant="contained" type="submit">
+            Send
+          </Button>
         </form>
       </Paper>
     </div>

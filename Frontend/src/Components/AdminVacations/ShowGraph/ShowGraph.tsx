@@ -8,6 +8,7 @@ import {
   ValueAxis,
 } from "@devexpress/dx-react-chart-material-ui";
 import { Paper } from "@material-ui/core";
+import _ from "lodash";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -23,7 +24,7 @@ interface FollowedVacations {
 }
 
 function ShowGraph(): JSX.Element {
-    const history = useHistory()
+  const history = useHistory();
   const [followedVacations, setFollowedVacations] = useState<
     FollowedVacations[]
   >([]);
@@ -31,12 +32,15 @@ function ShowGraph(): JSX.Element {
     (async () => {
       try {
         document.title = "Followers Graph";
-        if (!store.getState().authState.user) {
+        if (
+          !store.getState().authState.user ||
+          _.isEmpty(store.getState().authState.user)
+        ) {
           notify.error("You are not logged in.");
           return history.replace("/login");
         } else if (!store.getState().authState.user.isAdmin) {
           notify.error("You are not authorized to enter here!");
-          return history.replace("/vacations");
+          return history.replace("/");
         }
         const response = await jwtAxios.get<FollowedVacations[]>(
           config.getAllFollowedVacations
@@ -46,10 +50,8 @@ function ShowGraph(): JSX.Element {
         notify.error(error);
       }
     })();
-  }, [followedVacations]);
-  const getWindowSize = () => {
-    return window.innerWidth;
-  };
+  },[]);
+
   return (
     <div className="ShowGraph">
       <Paper variant="elevation" className="graph-container">

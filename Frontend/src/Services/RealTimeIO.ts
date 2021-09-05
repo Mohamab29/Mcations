@@ -5,34 +5,47 @@ import VacationModel from "../Models/VacationModel";
 class RealTimeService {
   private socket: Socket;
 
-  public connect(): void {
+  public connect(): boolean {
     if (this.socket?.connected) {
-      return;
+      return false;
     }
     this.socket = io("http://localhost:3001");
+    return true;
   }
   public isConnected(): Boolean {
     return this.socket ? (this.socket.connected ? true : false) : false;
   }
   public vacationAdded(updateState: Function) {
-    this.socket.on("vacation-added", (vacation) => updateState(vacation));
+    if (!this.socket?.hasListeners("vacation-added")) {
+      this.socket.on("vacation-added", (vacation) => updateState(vacation));
+    }
   }
   public addVacation(vacation: VacationModel) {
-    this.socket.emit("add-new-vacation", vacation);
+    if (!this.socket?.hasListeners("add-new-vacation")) {
+      this.socket.emit("add-new-vacation", vacation);
+    }
   }
   public vacationUpdated(updateState: Function) {
-    this.socket.on("vacation-updated", (vacation) => updateState(vacation));
+    if (!this.socket?.hasListeners("vacation-updated")) {
+      this.socket.on("vacation-updated", (vacation) => updateState(vacation));
+    }
   }
   public updateVacation(vacation: VacationModel) {
-    this.socket.emit("update-vacation", vacation);
+    if (!this.socket?.hasListeners("update-vacation")) {
+      this.socket.emit("update-vacation", vacation);
+    }
   }
   public vacationDeleted(updateState: Function) {
-    this.socket.on("vacation-deleted", (vacationId: string) =>
-      updateState(vacationId)
-    );
+    if (!this.socket?.hasListeners("vacation-deleted")) {
+      this.socket.on("vacation-deleted", (vacationId: string) =>
+        updateState(vacationId)
+      );
+    }
   }
   public deleteVacation(vacationId: string) {
-    this.socket.emit("delete-vacation", vacationId);
+    if (!this.socket?.hasListeners("delete-vacation")) {
+      this.socket.emit("delete-vacation", vacationId);
+    }
   }
 
   public disconnect(): void {

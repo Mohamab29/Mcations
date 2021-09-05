@@ -1,5 +1,6 @@
 import { Typography } from "@material-ui/core";
 import axios from "axios";
+import _ from "lodash";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import sortVacations from "../../../Helpers/SortVacations";
@@ -40,13 +41,15 @@ function ShowVacationsUser(): JSX.Element {
   useEffect(() => {
     (async () => {
       try {
-          document.title="Available vacations"
-        if (!store.getState().authState.user) {
+        document.title = "Available vacations";
+        if (
+          !store.getState().authState.user ||
+          _.isEmpty(store.getState().authState.user)
+        ) {
           notify.error("You are not logged in.");
           return history.replace("/login");
         }
-        // establishing a connection with the server
-        realTimeService.connect()
+
         if (store.getState().vacationsState.vacations.length === 0) {
           const response = await jwtAxios.get<VacationModel[]>(
             config.vacationsURL
@@ -58,18 +61,22 @@ function ShowVacationsUser(): JSX.Element {
           });
         }
         setVacations(store.getState().vacationsState.vacations);
-        // listening to add vacation event
-        realTimeService.vacationAdded(vacationHasBeenAdded);
-        // listening to delete vacation event
-        realTimeService.vacationDeleted(vacationHasBeenDeleted);
-        // listening to update vacation event
-        realTimeService.vacationUpdated(vacationHasBeenUpdated);
+        // establishing a connection with the server
+        if (!realTimeService.isConnected()) {
+            realTimeService.connect();
+          // listening to add vacation event
+          realTimeService.vacationAdded(vacationHasBeenAdded);
+          // listening to delete vacation event
+          realTimeService.vacationDeleted(vacationHasBeenDeleted);
+          // listening to update vacation event
+          realTimeService.vacationUpdated(vacationHasBeenUpdated);
+        }
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
           notify.error(error);
-          console.log(error)
+          console.log(error);
           if (error.response.status === 401) {
-            return history.replace("/register");
+            return history.replace("/");
           } else if (error.response.status === 403) {
             store.dispatch({
               type: AuthActionType.UserLoggedOut,
@@ -91,7 +98,9 @@ function ShowVacationsUser(): JSX.Element {
     <div className="ShowVacationsUser">
       {(vacations.length === 0 && <LoadingGIF />) || (
         <>
-          <Typography variant="h2" className="title">The available vacations</Typography>
+          <Typography variant="h2" className="title">
+            The available vacations
+          </Typography>
           <div className="cards">
             {vacations.map((v, index) => (
               <VacationCard key={index} vacation={v} />

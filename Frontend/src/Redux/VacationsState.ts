@@ -41,5 +41,6 @@ export function vacationsReducer(
       newState.vacations.splice(vacationIndex, 1);
       break;
   }
+  
   return newState;
 }

@@ -1,4 +1,4 @@
-import { Button, Paper, Typography } from "@material-ui/core";
+import {  Paper, Typography } from "@material-ui/core";
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -75,7 +75,7 @@ function VacationDetails(props: VacationDetailsProps): JSX.Element {
 
           <img
             src={config.vacationImagesURL + vacation.imageName}
-            alt="card image"
+            alt=""
             loading="lazy"
             className="card-image"
           ></img>

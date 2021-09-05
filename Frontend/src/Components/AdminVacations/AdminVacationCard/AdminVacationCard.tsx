@@ -1,10 +1,4 @@
-import {
-  Button,
-  ButtonGroup,
-  IconButton,
-  Paper,
-  Typography,
-} from "@material-ui/core";
+import { IconButton, Paper, Typography } from "@material-ui/core";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { beautifyDate } from "../../../Helpers/HandleDate";
@@ -38,7 +32,7 @@ function AdminVacationCard(props: AdminVacationCardProps): JSX.Element {
         type: VacationsActionType.VacationDeleted,
         payload: vacationId,
       });
-      realTimeService.deleteVacation(vacationId);
+        realTimeService.deleteVacation(vacationId);
       notify.success("Vacation has been deleted!");
     } catch (error) {
       notify.error(error);
@@ -54,8 +48,8 @@ function AdminVacationCard(props: AdminVacationCardProps): JSX.Element {
 
         <img
           src={config.vacationImagesURL + props.vacation.imageName}
-          alt="card image"
           loading="lazy"
+          alt=""
         ></img>
 
         <div className="card-footer">

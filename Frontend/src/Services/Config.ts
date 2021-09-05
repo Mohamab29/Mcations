@@ -1,6 +1,7 @@
 abstract class Config {
   public readonly registerURL: string;
   public readonly loginURL: string;
+  public readonly getUserById: string;
   public readonly vacationsURL: string;
   public readonly vacationImagesURL: string;
   public readonly followersURL: string;
@@ -11,6 +12,7 @@ abstract class Config {
   public constructor(baseURL: string) {
     this.registerURL = baseURL + "auth/register/";
     this.loginURL = baseURL + "auth/login/";
+    this.getUserById = baseURL + "auth/get-user/";
     this.vacationsURL = baseURL + "vacations/";
     this.vacationImagesURL = baseURL + "images/";
     this.followersURL = baseURL + "followers/";

@@ -13,6 +13,9 @@
     justify-content: center;
     align-items: center;
 }
-.form-dialog-title > h2 > h6{
+.form-dialog-title > h2 > p{
     flex-grow: 1;
+    font-weight: bolder;
+    font-size: x-large;
 }
+

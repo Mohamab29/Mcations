@@ -24,7 +24,7 @@ function VacationPopup(props: VacationPopupProps): JSX.Element {
     <>
       <Dialog open={props.popupOpen} className="popup-form">
         <DialogTitle className="form-dialog-title">
-          <Typography variant="h6">
+          <Typography variant="body2">
             {!props.vacation ? "Add a vacation" : "Update a vacation"}
           </Typography>
           <IconButton
