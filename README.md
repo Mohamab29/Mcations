@@ -26,15 +26,15 @@ The website is built using React Typescript,NodeJs,express,MySql and Socket.IO.
 
 ## :sparkles: Features ##
 
-:heavy_check_mark: User authentication;\
-:heavy_check_mark: admin can update and delete a vacation;\
-:heavy_check_mark: admin can see a statistic graph;\
-:heavy_check_mark: Real time update - meaning if an admin changes a detail in a vacation a user can see that in real time (just open two tabs);\
-:heavy_check_mark: user can see a checkout a bunch of vacation;\
-:heavy_check_mark: vacation details;\
-:heavy_check_mark: a user can favorite a vacation;\
-:heavy_check_mark: Redux;\
-:heavy_check_mark: Using Material UI >=v4.0;
+:heavy_check_mark: User authentication.\
+:heavy_check_mark: admin can update and delete a vacation.\
+:heavy_check_mark: admin can see a statistic graph.\
+:heavy_check_mark: Real time update - meaning if an admin changes a detail in a vacation a user can see that in real time.\
+:heavy_check_mark: user can see a checkout a bunch of vacation.\
+:heavy_check_mark: vacation details.\
+:heavy_check_mark: a user can favorite a vacation.\
+:heavy_check_mark: Redux.\
+:heavy_check_mark: Using Material UI >=v4.0.
 
 ## :rocket: Technologies ##
 
