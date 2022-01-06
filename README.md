@@ -1,27 +1,11 @@
-
-A Fullstack project about building a vacations website, using React TypeScript, Node JS, Socket.io, Express and MySQL..   
-
 <div align="center" id="top"> 
-  <img src="./.github/app.gif" alt="Frontend" />
+  <img src="./Frontend/src/assets/images/logo.png" alt="Frontend" width="50%" />
 
   &#xa0;
-  <!-- <a href="https://frontend.netlify.app">Demo</a> -->
 
 </div>
 
-<h1 align="center">Mcations</h1>
 
-<p align="center">
-
-</p>
-
-<!-- Status -->
-
-<!-- <h4 align="center"> 
-	🚧  Frontend 🚀 Under construction...  🚧
-</h4> 
-
-<hr> -->
 
 <p align="center">
   <a href="#dart-about">About</a> &#xa0; | &#xa0; 
@@ -37,23 +21,31 @@ A Fullstack project about building a vacations website, using React TypeScript, 
 
 ## :dart: About ##
 
-Describe your project
+A SPA web application about different vacation places that a person can checkout and choose his favorite location.<br/>
+The website is built using React Typescript,NodeJs,express,MySql and Socket.IO. 
 
 ## :sparkles: Features ##
 
-:heavy_check_mark: Feature 1;\
-:heavy_check_mark: Feature 2;\
-:heavy_check_mark: Feature 3;
+:heavy_check_mark: User authentication;\
+:heavy_check_mark: admin can update and delete a vacation;\
+:heavy_check_mark: admin can see a statistic graph;\
+:heavy_check_mark: Real time update - meaning if an admin changes a detail in a vacation a user can see that in real time (just open two tabs);\
+:heavy_check_mark: user can see a checkout a bunch of vacation;\
+:heavy_check_mark: vacation details;\
+:heavy_check_mark: a user can favorite a vacation;\
+:heavy_check_mark: Redux;\
+:heavy_check_mark: Using Material UI >=v4.0;
 
 ## :rocket: Technologies ##
 
 The following tools were used in this project:
 
-- [Expo](https://expo.io/)
-- [Node.js](https://nodejs.org/en/)
 - [React](https://pt-br.reactjs.org/)
-- [React Native](https://reactnative.dev/)
 - [TypeScript](https://www.typescriptlang.org/)
+- [Node.js](https://nodejs.org/en/)
+- [Express](https://expressjs.com/)
+- [MySql](https://www.mysql.com/)
+- [Socket.io](https://socket.io/)
 
 ## :white_check_mark: Requirements ##
 
@@ -63,18 +55,28 @@ Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) an
 
 ```bash
 # Clone this project
-$ git clone https://github.com/Mohamab29/frontend
+$ git clone https://github.com/Mohamab29/Mcations
 
-# Access
+# Access frontend
+$ import database to any sql application
+
+# Access frontend
 $ cd frontend
 
-# Install dependencies
-$ yarn
+# Access frontend
+$ cd backend
 
-# Run the project
-$ yarn start
 
-# The server will initialize in the <http://localhost:3000>
+# Install dependencies in frontend and backend folders
+$ npm i 
+
+# Run the frontend 
+$ npm start
+
+# Run the backend 
+$ node app
+
+# The website will initialize in the <http://localhost:3000>
 ```
 
 ## :memo: License ##
