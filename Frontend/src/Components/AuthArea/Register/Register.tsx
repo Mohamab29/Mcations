@@ -5,15 +5,17 @@ import { useForm } from "react-hook-form";
 import { NavLink, useHistory } from "react-router-dom";
 import UserModel from "../../../Models/UserModel";
 import { AuthActionType } from "../../../Redux/AuthState";
-import store from "../../../Redux/Store";
+import store, { RootState } from "../../../Redux/Store";
 import config from "../../../Services/Config";
 import notify from "../../../Services/Notify";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 import "./Register.css";
 import _ from "lodash";
+import { useSelector } from "react-redux";
 
 function Register(): JSX.Element {
+  const user = useSelector((state: RootState) => state.authState.user);
   const history = useHistory();
   const {
     register,
@@ -23,11 +25,11 @@ function Register(): JSX.Element {
   useEffect(() => {
     document.title = "Register page";
     if (
-      store.getState().authState.user &&
-      _.isEmpty(store.getState().authState.user)
+      user &&
+      _.isEmpty(user)
     ) {
       return history.replace("/login");
-    } else if (store.getState().authState.user) {
+    } else if (user) {
       return history.replace("/");
     }
   }, []);
@@ -130,7 +132,7 @@ function Register(): JSX.Element {
             <span>A username should be at most 30 letters long</span>
           )}
           <TextField
-          type="password"
+            type="password"
             label="Password"
             variant="standard"
             className="TextBox"
