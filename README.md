@@ -1,5 +1,5 @@
 <div align="center" id="top"> 
-  <img src="./Frontend/src/assets/images/logo.png" alt="Frontend" width="50%" />
+  <img src="./Frontend/src/assets/images/logo.png" alt="Frontend" width="30%" />
 
   &#xa0;
 
@@ -65,7 +65,6 @@ $ cd frontend
 
 # Access frontend
 $ cd backend
-
 
 # Install dependencies in frontend and backend folders
 $ npm i 
