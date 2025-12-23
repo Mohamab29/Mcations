@@ -111,3 +111,10 @@ package-lock.json
 
 # frontend build files
 _front-end/
+
+# TypeScript build output
+dist/
+*.tsbuildinfo
+
+# TypeScript cache
+.tscache/

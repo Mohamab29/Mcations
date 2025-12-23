@@ -2,8 +2,14 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "The Backend for the vacations project.",
-  "main": "app.js",
+  "main": "dist/app.js",
   "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
+    "build": "tsc",
+    "start": "node dist/app.js",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "format": "prettier --write src/**/*.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -24,6 +30,8 @@
   },
   "homepage": "https://github.com/Mohamab29/Mcations#readme",
   "dependencies": {
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.3",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
@@ -32,7 +40,22 @@
     "joi": "^17.4.2",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
+    "mysql2": "^3.16.0",
+    "reflect-metadata": "^0.2.2",
     "socket.io": "^4.1.3",
+    "typeorm": "^0.3.28",
     "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^25.0.3",
+    "@typescript-eslint/eslint-plugin": "^8.50.1",
+    "@typescript-eslint/parser": "^8.50.1",
+    "eslint": "^9.39.2",
+    "prettier": "^3.7.4",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.9.3"
   }
 }
