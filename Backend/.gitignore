@@ -108,3 +108,6 @@ package-lock.json
 
 # images file
 /images/*
+
+# frontend build files
+_front-end/
